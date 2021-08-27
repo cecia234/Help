@@ -1,12 +1,19 @@
 package it.units.ceschia.help.fragment;
 
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import it.units.ceschia.help.R;
 
@@ -15,7 +22,7 @@ import it.units.ceschia.help.R;
  * Use the {@link LoginFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class LoginFragment extends Fragment {
+public class LoginFragment extends Fragment implements View.OnClickListener{
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -62,5 +69,29 @@ public class LoginFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_login, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        int[] buttons = {R.id.signin_button, R.id.signup_button};
+        for (int button : buttons) {
+            Button b = view.findViewById(button);
+            b.setOnClickListener(this);
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.signin_button:
+                Log.i("echo", "clickSignIn");
+                break;
+            case R.id.signup_button:
+                Log.i("echo", "clickSignup");
+                NavController nc = Navigation.findNavController(view);
+                nc.navigate(R.id.signUpFragment);
+                break;
+        }
     }
 }

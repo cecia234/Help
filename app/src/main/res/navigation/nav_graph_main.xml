@@ -39,4 +39,18 @@
         android:id="@+id/settingsFragment"
         android:name="it.units.ceschia.help.fragment.SettingsFragment"
         android:label="SettingsFragment" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="it.units.ceschia.help.fragment.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="it.units.ceschia.help.fragment.SignUpFragment"
+        android:label="fragment_sign_up"
+        tools:layout="@layout/fragment_sign_up" />
 </navigation>
