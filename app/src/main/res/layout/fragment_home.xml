@@ -5,7 +5,7 @@
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeFragment">
+    tools:context=".fragment.HomeFragment">
 
     <Button
         android:id="@+id/button_emergency"
@@ -14,7 +14,7 @@
         android:backgroundTint="@color/help_red"
         android:text="@string/button_emergency"
         android:textColor="#000000"
-        app:layout_constraintBottom_toTopOf="@+id/button_inform"
+        app:layout_constraintBottom_toTopOf="@+id/button_relatives"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,12 +23,12 @@
         app:layout_constraintVertical_weight="1" />
 
     <Button
-        android:id="@+id/button_inform"
+        android:id="@+id/button_relatives"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:backgroundTint="@color/help_yellow"
-        android:text="@string/button_inform"
+        android:text="@string/button_relatives"
         android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/button_noise"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,7 +49,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_inform"
+        app:layout_constraintTop_toBottomOf="@+id/button_relatives"
         app:layout_constraintVertical_weight="1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

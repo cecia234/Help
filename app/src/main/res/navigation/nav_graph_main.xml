@@ -7,7 +7,36 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="it.units.ceschia.help.HomeFragment"
+        android:name="it.units.ceschia.help.fragment.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_emergencyFragment"
+            app:destination="@id/emergencyFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_relativesFragment"
+            app:destination="@id/relativesFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_noiseFragment"
+            app:destination="@id/noiseFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/emergencyFragment"
+        android:name="it.units.ceschia.help.fragment.EmergencyFragment"
+        android:label="fragment_emergency"
+        tools:layout="@layout/fragment_emergency" />
+    <fragment
+        android:id="@+id/relativesFragment"
+        android:name="it.units.ceschia.help.fragment.RelativesFragment"
+        android:label="fragment_relatives"
+        tools:layout="@layout/fragment_relatives" />
+    <fragment
+        android:id="@+id/noiseFragment"
+        android:name="it.units.ceschia.help.fragment.NoiseFragment"
+        android:label="fragment_noise"
+        tools:layout="@layout/fragment_noise" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="it.units.ceschia.help.fragment.SettingsFragment"
+        android:label="SettingsFragment" />
 </navigation>
