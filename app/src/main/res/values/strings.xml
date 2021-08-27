@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Help!</string>
+    <string name="button_emergency">Emergency</string>
+    <string name="button_inform">Inform close people</string>
+    <string name="button_noise">Make Noise!</string>
+    <string name="toolbar_settings">Settings</string>
+
+
+</resources>
