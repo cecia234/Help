@@ -9,58 +9,50 @@
 
     <Button
         android:id="@+id/button_emergency"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:backgroundTint="@color/help_red"
         android:text="@string/button_emergency"
         android:textColor="#000000"
         app:layout_constraintBottom_toTopOf="@+id/button_relatives"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed"
-        app:layout_constraintVertical_weight="1" />
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <Button
         android:id="@+id/button_relatives"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:backgroundTint="@color/help_yellow"
         android:text="@string/button_relatives"
         android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/button_noise"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_emergency"
-        app:layout_constraintVertical_weight="1" />
+        app:layout_constraintEnd_toEndOf="@+id/button_emergency"
+        app:layout_constraintStart_toStartOf="@+id/button_emergency"
+        app:layout_constraintTop_toBottomOf="@+id/button_emergency" />
 
     <Button
         android:id="@+id/button_noise"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:backgroundTint="@color/help_green"
         android:text="@string/button_noise"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_relatives"
-        app:layout_constraintVertical_weight="1" />
+        app:layout_constraintBottom_toTopOf="@+id/logout_button"
+        app:layout_constraintEnd_toEndOf="@+id/button_relatives"
+        app:layout_constraintStart_toStartOf="@+id/button_relatives"
+        app:layout_constraintTop_toBottomOf="@+id/button_relatives" />
 
     <Button
         android:id="@+id/logout_button"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:onClick="logOut"
         android:text="Log Out"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/button_noise"
+        app:layout_constraintStart_toStartOf="@+id/button_noise"
         app:layout_constraintTop_toBottomOf="@+id/button_noise" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
         userViewModel.setFirebaseUser(mAuth.getCurrentUser());
         //set custom Toolbar as app bar
         setSupportActionBar(binding.toolbarMain);
-        setContentView(R.layout.activity_main);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar_main);
 
         setSupportActionBar(myToolbar);
@@ -63,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -77,17 +77,6 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        NavHostFragment navHostFragment =
-                (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
-        navController = navHostFragment.getNavController();
-
-    }
-
-
 
     public void logOut(View view){
         mAuth.signOut();
