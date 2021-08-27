@@ -22,7 +22,7 @@
         app:layout_constraintVertical_chainStyle="packed" />
 
     <EditText
-        android:id="@+id/edit_text_prompt_email"
+        android:id="@+id/edit_text_prompt_email_signin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -37,7 +37,7 @@
         tools:ignore="SpeakableTextPresentCheck" />
 
     <EditText
-        android:id="@+id/edit_text_prompt_pw"
+        android:id="@+id/edit_text_prompt_pw_signin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -56,8 +56,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:text="@string/prompt_email"
-        app:layout_constraintBottom_toTopOf="@+id/edit_text_prompt_email"
-        app:layout_constraintStart_toStartOf="@+id/edit_text_prompt_email"
+        app:layout_constraintBottom_toTopOf="@+id/edit_text_prompt_email_signin"
+        app:layout_constraintStart_toStartOf="@+id/edit_text_prompt_email_signin"
         app:layout_constraintTop_toBottomOf="@+id/login_welcome_text_view" />
 
     <TextView
@@ -66,9 +66,9 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:text="@string/prompt_password"
-        app:layout_constraintBottom_toTopOf="@+id/edit_text_prompt_pw"
-        app:layout_constraintStart_toStartOf="@+id/edit_text_prompt_pw"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_prompt_email" />
+        app:layout_constraintBottom_toTopOf="@+id/edit_text_prompt_pw_signin"
+        app:layout_constraintStart_toStartOf="@+id/edit_text_prompt_pw_signin"
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_prompt_email_signin" />
 
     <Button
         android:id="@+id/signin_button"
@@ -77,10 +77,10 @@
         android:layout_marginTop="16dp"
         android:text="@string/action_sign_in_short"
         app:layout_constraintBottom_toTopOf="@+id/signup_button"
-        app:layout_constraintEnd_toEndOf="@+id/edit_text_prompt_pw"
+        app:layout_constraintEnd_toEndOf="@+id/edit_text_prompt_pw_signin"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/edit_text_prompt_pw"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_prompt_pw" />
+        app:layout_constraintStart_toStartOf="@+id/edit_text_prompt_pw_signin"
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_prompt_pw_signin" />
 
     <Button
         android:id="@+id/signup_button"
@@ -89,9 +89,9 @@
         android:layout_marginTop="8dp"
         android:text="@string/action_sign_up_short"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/edit_text_prompt_pw"
+        app:layout_constraintEnd_toEndOf="@+id/edit_text_prompt_pw_signin"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/edit_text_prompt_pw"
+        app:layout_constraintStart_toStartOf="@+id/edit_text_prompt_pw_signin"
         app:layout_constraintTop_toBottomOf="@+id/signin_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
