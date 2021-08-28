@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scroll_view_edit_specific_user_infos"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".fragment.EditSpecificInfosFragment"
+    tools:ignore="SpeakableTextPresentCheck">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_layout_edit_specific_user_infos"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/text_view_edit_spec_infos_allergies"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:labelFor="@id/edit_text_edit_spec_infos_allergies"
+            android:text="@string/text_view_user_info_specific_allergies"
+            app:layout_constraintStart_toStartOf="@+id/edit_text_edit_spec_infos_allergies"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/edit_text_edit_spec_infos_allergies"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/text_view_user_info_specific_allergies"
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_edit_spec_infos_allergies" />
+
+        <TextView
+            android:id="@+id/text_view_edit_spec_infos_diseases"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:labelFor="@id/edit_text_edit_spec_infos_diseases"
+            android:text="@string/text_view_user_info_specific_blood_type"
+            app:layout_constraintStart_toStartOf="@+id/edit_text_edit_spec_infos_diseases"
+            app:layout_constraintTop_toBottomOf="@+id/edit_text_edit_spec_infos_allergies" />
+
+        <EditText
+            android:id="@+id/edit_text_edit_spec_infos_diseases"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/text_view_user_info_specific_blood_type"
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_edit_spec_infos_diseases" />
+
+        <TextView
+            android:id="@+id/text_view_edit_spec_infos_vaccines"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/text_view_user_info_specific_vaccines"
+            app:layout_constraintStart_toStartOf="@+id/edit_text_edit_spec_infos_vaccines"
+            app:layout_constraintTop_toBottomOf="@+id/edit_text_edit_spec_infos_diseases" />
+
+        <EditText
+            android:id="@+id/edit_text_edit_spec_infos_vaccines"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/text_view_user_info_specific_vaccines"
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_edit_spec_infos_vaccines" />
+
+        <TextView
+            android:id="@+id/text_view_edit_spec_infos_medicines"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/text_view_user_info_specific_medicines"
+            app:layout_constraintStart_toStartOf="@+id/edit_text_edit_spec_infos_medicines"
+            app:layout_constraintTop_toBottomOf="@+id/edit_text_edit_spec_infos_vaccines" />
+
+        <EditText
+            android:id="@+id/edit_text_edit_spec_infos_medicines"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/text_view_user_info_specific_vaccines"
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_edit_spec_infos_medicines" />
+
+        <TextView
+            android:id="@+id/text_view_edit_spec_infos_blood_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/text_view_user_info_specific_blood_type"
+            app:layout_constraintStart_toStartOf="@+id/edit_text_edit_spec_infos_blood_type"
+            app:layout_constraintTop_toBottomOf="@+id/edit_text_edit_spec_infos_medicines" />
+
+        <EditText
+            android:id="@+id/edit_text_edit_spec_infos_blood_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/text_view_user_info_specific_blood_type"
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_edit_spec_infos_blood_type" />
+
+        <TextView
+            android:id="@+id/text_view_edit_spec_infos_rh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_view_user_info_specific_rh"
+            app:layout_constraintStart_toStartOf="@+id/edit_text_edit_spec_infos_rh"
+            app:layout_constraintTop_toBottomOf="@+id/edit_text_edit_spec_infos_blood_type" />
+
+        <EditText
+            android:id="@+id/edit_text_edit_spec_infos_rh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/text_view_user_info_specific_rh"
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_edit_spec_infos_rh" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/button_user_info_specific_send"
+            app:layout_constraintEnd_toEndOf="@+id/edit_text_edit_spec_infos_rh"
+            app:layout_constraintStart_toStartOf="@+id/edit_text_edit_spec_infos_rh"
+            app:layout_constraintTop_toBottomOf="@+id/edit_text_edit_spec_infos_rh" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

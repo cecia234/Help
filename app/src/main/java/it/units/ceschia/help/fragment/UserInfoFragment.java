@@ -9,17 +9,21 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import it.units.ceschia.help.R;
 import it.units.ceschia.help.entity.User;
 import it.units.ceschia.help.viewmodel.UserViewModel;
 
-public class UserInfoFragment extends Fragment {
+public class UserInfoFragment extends Fragment implements View.OnClickListener {
 
     UserViewModel userViewModel;
     public UserInfoFragment() {
@@ -44,6 +48,11 @@ public class UserInfoFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         updateInfos();
 
+        int[] buttons = {R.id.button_user_info_edit_user_info, R.id.button_user_info_add_specific_infos, R.id.button_user_info_contacts,R.id.button_user_info_message_preferences,R.id.button_user_info_priorities};
+        for (int button : buttons) {
+            Button b = view.findViewById(button);
+            b.setOnClickListener(this);
+        }
 
     }
 
@@ -64,5 +73,32 @@ public class UserInfoFragment extends Fragment {
             address.setText(user.getAddress());
 
         });
+    }
+
+    @Override
+    public void onClick(View view) {
+        final NavController nc = Navigation.findNavController(view);
+        switch (view.getId()) {
+            case R.id.button_user_info_edit_user_info:
+                Log.i("echo", "clickB");
+                //nc.navigate(R.id.emergencyFragment);
+                break;
+            case R.id.button_user_info_add_specific_infos:
+                Log.i("echo", "clickC");
+                nc.navigate(R.id.action_userInfoFragment_to_editSpecificInfosFragment);
+                break;
+            case R.id.button_user_info_contacts:
+                Log.i("echo", "clickD");
+                //nc.navigate(R.id.noiseFragment);
+                break;
+            case R.id.button_user_info_message_preferences:
+                Log.i("echo", "clickD");
+                //nc.navigate(R.id.noiseFragment);
+                break;
+            case R.id.button_user_info_priorities:
+                Log.i("echo", "clickD");
+               // nc.navigate(R.id.noiseFragment);
+                break;
+        }
     }
 }

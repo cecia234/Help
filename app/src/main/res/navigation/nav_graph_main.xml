@@ -88,5 +88,18 @@
         android:id="@+id/userInfoFragment"
         android:name="it.units.ceschia.help.fragment.UserInfoFragment"
         android:label="fragment_user_info"
-        tools:layout="@layout/fragment_user_info" />
+        tools:layout="@layout/fragment_user_info" >
+        <action
+            android:id="@+id/action_userInfoFragment_to_editSpecificInfosFragment"
+            app:destination="@id/editSpecificInfosFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/editSpecificInfosFragment"
+        android:name="it.units.ceschia.help.fragment.EditSpecificInfosFragment"
+        android:label="fragment_edit_specific_infos"
+        tools:layout="@layout/fragment_edit_specific_infos" />
 </navigation>
