@@ -103,15 +103,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         switch (view.getId()) {
             case R.id.button_emergency:
                 Log.i("echo", "clickB");
-                nc.navigate(R.id.emergencyFragment);
+                nc.navigate(R.id.action_homeFragment_to_emergencyFragment);
                 break;
             case R.id.button_relatives:
                 Log.i("echo", "clickC");
-                nc.navigate(R.id.relativesFragment);
+                nc.navigate(R.id.action_homeFragment_to_relativesFragment);
                 break;
             case R.id.button_noise:
                 Log.i("echo", "clickD");
-                nc.navigate(R.id.noiseFragment);
+                nc.navigate(R.id.action_homeFragment_to_noiseFragment);
                 break;
         }
     }
