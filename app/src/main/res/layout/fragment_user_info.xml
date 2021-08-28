@@ -5,6 +5,7 @@
     android:id="@+id/constraint_layout_user_info"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#BAAEAE"
     tools:context=".fragment.UserInfoFragment">
 
     <TextView
@@ -21,9 +22,10 @@
         android:id="@+id/text_view_userinfo_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
         android:text="Email"
         app:layout_constraintBottom_toTopOf="@+id/horizontal_guideline_user_info_18_75"
-        app:layout_constraintEnd_toStartOf="@+id/vertical_guideline_user_info_25"
+        app:layout_constraintEnd_toStartOf="@+id/vertical_guideline_user_info_50"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/horizontal_guideline_user_info_12_5" />
 
@@ -31,6 +33,7 @@
         android:id="@+id/text_view_userinfo_country"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
         android:text="Country"
         app:layout_constraintBottom_toTopOf="@+id/horizontal_guideline_user_info_18_75"
         app:layout_constraintEnd_toStartOf="@+id/vertical_guideline_user_info_75"
@@ -41,6 +44,7 @@
         android:id="@+id/text_view_userinfo_city"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
         android:text="City"
         app:layout_constraintBottom_toTopOf="@+id/horizontal_guideline_user_info_18_75"
         app:layout_constraintEnd_toEndOf="parent"
@@ -51,6 +55,7 @@
         android:id="@+id/text_view_userinfo_address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
         android:text="Address"
         app:layout_constraintBottom_toTopOf="@+id/horizontal_guideline_user_info_25"
         app:layout_constraintEnd_toEndOf="parent"
@@ -61,9 +66,10 @@
         android:id="@+id/text_view_userinfo_phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
         android:text="Telephone"
         app:layout_constraintBottom_toTopOf="@+id/horizontal_guideline_user_info_25"
-        app:layout_constraintEnd_toStartOf="@+id/vertical_guideline_user_info_25"
+        app:layout_constraintEnd_toStartOf="@+id/vertical_guideline_user_info_50"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/horizontal_guideline_user_info_18_75"
         app:layout_constraintVertical_bias="0.629" />
@@ -127,6 +133,59 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/horizontal_guideline_user_info_25" />
+        app:layout_constraintTop_toBottomOf="@id/horizontal_guideline_user_info_25">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/button_user_info_edit_user_info"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/button_user_info_edit_user_info"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <Button
+                android:id="@+id/button_user_info_add_specific_infos"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/button_user_info_edit_user_info_specific"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <Button
+                android:id="@+id/button_user_info_contacts"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/button_user_info_edit_user_contacts"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <Button
+                android:id="@+id/button_user_info_message_preferences"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/button_user_info_edit_user_message_preferences"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <Button
+                android:id="@+id/button_user_info_priorities"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/button_user_info_edit_app_priorities"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

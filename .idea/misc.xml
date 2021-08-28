@@ -12,8 +12,9 @@
         <entry key="app/src/main/res/layout/fragment_noise.xml" value="0.20104166666666667" />
         <entry key="app/src/main/res/layout/fragment_relatives.xml" value="0.36041666666666666" />
         <entry key="app/src/main/res/layout/fragment_sign_up.xml" value="0.22" />
-        <entry key="app/src/main/res/layout/fragment_user_info.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_user_info.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_user_menu.xml" value="0.23324275362318841" />
+        <entry key="app/src/main/res/layout/recycler_view_item.xml" value="0.23324275362318841" />
         <entry key="app/src/main/res/menu/app_bar_menu.xml" value="0.36041666666666666" />
         <entry key="app/src/main/res/menu/menu.xml" value="0.36041666666666666" />
         <entry key="app/src/main/res/xml/root_preferences.xml" value="0.25104166666666666" />

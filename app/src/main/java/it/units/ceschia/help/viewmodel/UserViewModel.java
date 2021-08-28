@@ -145,8 +145,8 @@ public class UserViewModel extends ViewModel {
     }
 
 
-    public User fetchUserInfos(){
-
+    public void fetchUserInfos(){
+        if(firebaseUser.getValue()==null) return;
         DocumentReference docRef = firebaseFirestore.getValue().collection("users").document(firebaseUser.getValue().getUid());
 
         Source source = Source.DEFAULT;
@@ -161,7 +161,7 @@ public class UserViewModel extends ViewModel {
                 }
             }
         });
-        return null;
+        return;
     }
 
 

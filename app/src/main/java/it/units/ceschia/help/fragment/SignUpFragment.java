@@ -1,5 +1,7 @@
 package it.units.ceschia.help.fragment;
 
+import static it.units.ceschia.help.utility.ViewsUtility.getTextFromEditTextView;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -20,6 +22,7 @@ import it.units.ceschia.help.R;
 import it.units.ceschia.help.entity.LoginResult;
 import it.units.ceschia.help.entity.SignupResult;
 import it.units.ceschia.help.entity.User;
+import it.units.ceschia.help.utility.ViewsUtility;
 import it.units.ceschia.help.viewmodel.UserViewModel;
 
 public class SignUpFragment extends Fragment {
@@ -83,8 +86,4 @@ public class SignUpFragment extends Fragment {
         });
     }
 
-    private String getTextFromEditTextView(View view,int id){
-        TextView t = (TextView) view.findViewById(id);
-        return t.getText().toString();
-    }
 }
