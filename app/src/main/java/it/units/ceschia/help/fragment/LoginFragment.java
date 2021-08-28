@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.SavedStateHandle;
@@ -48,12 +49,9 @@ public class LoginFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Toolbar myToolbar = (Toolbar) getActivity().findViewById(R.id.toolbar_login);
+        myToolbar.setTitle(R.string.action_sign_in);
         userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
-
-        savedStateHandle = Navigation.findNavController(view)
-                .getPreviousBackStackEntry()
-                .getSavedStateHandle();
-        savedStateHandle.set(LOGIN_SUCCESSFUL, false);
 
         int[] buttons = {R.id.signin_button, R.id.signup_button};
         for (int button : buttons) {
@@ -87,8 +85,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener{
     private void login(String email,String password){
         userViewModel.login(email, password).observe(requireActivity(), (Observer<LoginResult>) result -> {
             if (result.success) {
-                savedStateHandle.set(LOGIN_SUCCESSFUL, true);
-                NavHostFragment.findNavController(this).navigate(R.id.homeFragment);
+                NavHostFragment.findNavController(this).navigate(R.id.action_loginFragment_to_homeFragment);
             } else {
                 //showErrorMessage();
                 Log.i("echo","Login Failed");

@@ -17,6 +17,7 @@ import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import it.units.ceschia.help.databinding.ActivityMainBinding;
 import it.units.ceschia.help.entity.User;
@@ -26,7 +27,10 @@ public class MainActivity extends AppCompatActivity {
     private NavController navController;
     private ActivityMainBinding binding;
     private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
     private UserViewModel userViewModel;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,17 +41,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(view);
 
         mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
 
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        userViewModel.setFirebaseFirestore(db);
         userViewModel.setmAuth(mAuth);
-        userViewModel.setFirebaseUser(mAuth.getCurrentUser());
-        //set custom Toolbar as app bar
-        setSupportActionBar(binding.toolbarMain);
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar_main);
-
-        setSupportActionBar(myToolbar);
-
-        myToolbar.showOverflowMenu();
+        userViewModel.setFirebaseUser();
 
         NavHostFragment navHostFragment =
                 (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
@@ -80,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void logOut(View view){
         mAuth.signOut();
-        userViewModel.setFirebaseUser(mAuth.getCurrentUser());
-        navController.navigate(R.id.loginFragment);
+        userViewModel.setFirebaseUser();
     }
 }

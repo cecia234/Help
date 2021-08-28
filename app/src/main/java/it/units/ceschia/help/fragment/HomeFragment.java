@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -20,11 +21,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.HashMap;
 import it.units.ceschia.help.R;
+import it.units.ceschia.help.entity.User;
 import it.units.ceschia.help.viewmodel.UserViewModel;
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
@@ -52,16 +55,30 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+
         final NavController nc = Navigation.findNavController(getView());
-        //FirebaseUser currentUser = userViewModel.getFirebaseUser().getValue();
+
+        Toolbar myToolbar = (Toolbar) getActivity().findViewById(R.id.toolbar_home);
+        myToolbar.setTitle(R.string.app_name);
+
+        userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+
+        userViewModel.fetchUserInfos();
+
         userViewModel.getFirebaseUser().observe(getViewLifecycleOwner(), (Observer<FirebaseUser>) user -> {
             if (user != null) {
                 Log.i("echo","Logged!!!");
             } else {
-                nc.navigate(R.id.loginFragment);
+                nc.navigate(R.id.action_homeFragment_to_loginFragment);
             }
         });
+
+        userViewModel.getUser().observe(getViewLifecycleOwner(),(Observer<User>) user->{
+            String userInfos = user != null ?  userViewModel.getUser().getValue().toString() : "no user infos";
+            TextView userinfoTV = (TextView) getActivity().findViewById(R.id.text_view_user_info_home);
+            userinfoTV.setText(userInfos);
+        });
+
         int[] buttons = {R.id.button_emergency, R.id.button_relatives, R.id.button_noise};
         for (int button : buttons) {
             Button b = view.findViewById(button);
@@ -88,4 +105,5 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 break;
         }
     }
+
 }

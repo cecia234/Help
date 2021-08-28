@@ -11,20 +11,29 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseNetworkException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Source;
 
 import it.units.ceschia.help.MainActivity;
 import it.units.ceschia.help.entity.LoginResult;
+import it.units.ceschia.help.entity.SignupResult;
 import it.units.ceschia.help.entity.User;
 
 public class UserViewModel extends ViewModel {
     private MutableLiveData<User> user = new MutableLiveData<User>();
-    private MutableLiveData<FirebaseAuth> mAuth= new MutableLiveData<FirebaseAuth>();
-    private MutableLiveData<FirebaseUser> firebaseUser= new MutableLiveData<FirebaseUser>();
+    private MutableLiveData<FirebaseAuth> mAuth = new MutableLiveData<FirebaseAuth>();
+    private MutableLiveData<FirebaseUser> firebaseUser = new MutableLiveData<FirebaseUser>();
+    private MutableLiveData<FirebaseFirestore> firebaseFirestore = new MutableLiveData<FirebaseFirestore>();
+
 
     public UserViewModel() {
         this.user.setValue(null);
@@ -52,11 +61,20 @@ public class UserViewModel extends ViewModel {
         return firebaseUser;
     }
 
-    public void setFirebaseUser(FirebaseUser firebaseUser) {
-        this.firebaseUser.setValue(firebaseUser);
+    public void setFirebaseUser() {
+        this.firebaseUser.setValue(mAuth.getValue().getCurrentUser());
     }
 
-    public void signUpUser(User user,String password){
+    public MutableLiveData<FirebaseFirestore> getFirebaseFirestore() {
+        return firebaseFirestore;
+    }
+
+    public void setFirebaseFirestore(FirebaseFirestore firebaseFirestore) {
+        this.firebaseFirestore.setValue(firebaseFirestore);
+    }
+
+    public MutableLiveData<SignupResult> signUpUser(User user, String password) {
+        MutableLiveData<SignupResult> resultMutableLiveData = new MutableLiveData<SignupResult>();
         String email = user.getEmail();
         String pw = password;
         FirebaseAuth auth = mAuth.getValue();
@@ -65,21 +83,45 @@ public class UserViewModel extends ViewModel {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
+                            // Sign up success
                             Log.d(TAG, "createUserWithEmail:success");
-                            setFirebaseUser(auth.getCurrentUser());
-                            //updateUI(user);
+                            setFirebaseUser();
+                            String uid = firebaseUser.getValue().getUid();
+                            FirebaseFirestore db = firebaseFirestore.getValue();
+                            //try to add user to db
+                            db.collection("users").document(uid).set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    //if success, return true
+                                    resultMutableLiveData.setValue(new SignupResult(true));
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    //if failure, delete currently created user and return false
+                                    Log.w(TAG, "Error writing document", e);
+                                    firebaseUser.getValue().delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                Log.d(TAG, "User account deleted.");
+                                            }
+                                        }
+                                    });
+                                    resultMutableLiveData.setValue(new SignupResult(false));
+                                }
+                            });
                         } else {
-                            // If sign in fails, display a message to the user.
+                            // If sign up fails, return false.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
-
-                            //updateUI(null);
+                            resultMutableLiveData.setValue(new SignupResult(false));
                         }
                     }
                 });
+        return resultMutableLiveData;
     }
 
-    public MutableLiveData<LoginResult> login(String email,String password){
+    public MutableLiveData<LoginResult> login(String email, String password) {
         FirebaseAuth auth = mAuth.getValue();
         MutableLiveData<LoginResult> resultMutableLiveData = new MutableLiveData<LoginResult>();
         auth.signInWithEmailAndPassword(email, password)
@@ -90,7 +132,7 @@ public class UserViewModel extends ViewModel {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
 
-                            setFirebaseUser(auth.getCurrentUser());
+                            setFirebaseUser();
                             resultMutableLiveData.setValue(new LoginResult(true));
                         } else {
                             // If sign in fails, display a message to the user.
@@ -100,6 +142,26 @@ public class UserViewModel extends ViewModel {
                     }
                 });
         return resultMutableLiveData;
+    }
+
+
+    public User fetchUserInfos(){
+
+        DocumentReference docRef = firebaseFirestore.getValue().collection("users").document(firebaseUser.getValue().getUid());
+
+        Source source = Source.DEFAULT;
+
+        docRef.get(source).addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    // Document found in the offline cache
+                    DocumentSnapshot document = task.getResult();
+                    setUser(document.toObject(User.class));
+                }
+            }
+        });
+        return null;
     }
 
 
