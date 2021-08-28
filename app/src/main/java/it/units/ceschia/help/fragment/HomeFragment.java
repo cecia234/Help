@@ -1,23 +1,19 @@
 package it.units.ceschia.help.fragment;
 
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -25,7 +21,6 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseUser;
 
-import java.util.HashMap;
 import it.units.ceschia.help.R;
 import it.units.ceschia.help.entity.User;
 import it.units.ceschia.help.viewmodel.UserViewModel;
@@ -60,6 +55,22 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         Toolbar myToolbar = (Toolbar) getActivity().findViewById(R.id.toolbar_home);
         myToolbar.setTitle(R.string.app_name);
+        myToolbar.inflateMenu(R.menu.menu);
+        myToolbar.setOnMenuItemClickListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.toolbar_action_settings:
+                    nc.navigate(R.id.settingsFragment);
+                    return true;
+                case R.id.toolbar_action_user_info:
+                    Log.i("echo", "parawea");
+                    nc.navigate(R.id.action_homeFragment_to_userInfoFragment);
+                    return true;
+                default:
+                    // If we got here, the user's action was not recognized.
+                    // Invoke the superclass to handle it.
+                    return false;
+            }
+        });
 
         userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
 
@@ -67,14 +78,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         userViewModel.getFirebaseUser().observe(getViewLifecycleOwner(), (Observer<FirebaseUser>) user -> {
             if (user != null) {
-                Log.i("echo","Logged!!!");
+                Log.i("echo", "Logged!!!");
             } else {
                 nc.navigate(R.id.action_homeFragment_to_loginFragment);
             }
         });
 
-        userViewModel.getUser().observe(getViewLifecycleOwner(),(Observer<User>) user->{
-            String userInfos = user != null ?  userViewModel.getUser().getValue().toString() : "no user infos";
+        userViewModel.getUser().observe(getViewLifecycleOwner(), (Observer<User>) user -> {
+            String userInfos = user != null ? userViewModel.getUser().getValue().toString() : "no user infos";
             TextView userinfoTV = (TextView) getActivity().findViewById(R.id.text_view_user_info_home);
             userinfoTV.setText(userInfos);
         });
@@ -85,7 +96,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             b.setOnClickListener(this);
         }
     }
-
 
     @Override
     public void onClick(View view) {

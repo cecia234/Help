@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Help!</string>
+    <!-- Toolbar -->
     <string name="toolbar_settings">Settings</string>
+    <string name="toolbar_user_info">User Info</string>
+
     <!-- Buttons -->
     <string name="button_emergency">Emergency</string>
     <string name="button_relatives">Inform close people</string>
