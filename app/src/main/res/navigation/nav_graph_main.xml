@@ -33,6 +33,13 @@
         <action
             android:id="@+id/action_homeFragment_to_userInfoFragment"
             app:destination="@id/userInfoFragment"
+            app:enterAnim="@anim/slide_in_from_bottom"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/slide_out_from_bottom" />
+        <action
+            android:id="@+id/action_homeFragment_to_showInformationFragment"
+            app:destination="@id/showInformationFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
@@ -96,10 +103,33 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_userInfoFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_userInfoFragment_to_editInfosFragment"
+            app:destination="@id/editInfosFragment" />
     </fragment>
     <fragment
         android:id="@+id/editSpecificInfosFragment"
         android:name="it.units.ceschia.help.fragment.EditSpecificInfosFragment"
         android:label="fragment_edit_specific_infos"
         tools:layout="@layout/fragment_edit_specific_infos" />
+    <fragment
+        android:id="@+id/showInformationFragment"
+        android:name="it.units.ceschia.help.fragment.ShowInformationFragment"
+        android:label="fragment_show_information"
+        tools:layout="@layout/fragment_show_information" />
+    <fragment
+        android:id="@+id/editInfosFragment"
+        android:name="it.units.ceschia.help.fragment.EditInfosFragment"
+        android:label="fragment_edit_infos"
+        tools:layout="@layout/fragment_edit_infos" />
 </navigation>

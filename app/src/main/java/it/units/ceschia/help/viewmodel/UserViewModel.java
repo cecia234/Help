@@ -24,15 +24,19 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Source;
 
 import it.units.ceschia.help.MainActivity;
+import it.units.ceschia.help.entity.EditResult;
 import it.units.ceschia.help.entity.LoginResult;
 import it.units.ceschia.help.entity.SignupResult;
 import it.units.ceschia.help.entity.User;
+import it.units.ceschia.help.entity.UserInfoSpecific;
 
 public class UserViewModel extends ViewModel {
     private MutableLiveData<User> user = new MutableLiveData<User>();
+    private MutableLiveData<UserInfoSpecific> userInfoSpecificMutableLiveData = new MutableLiveData<UserInfoSpecific>();
     private MutableLiveData<FirebaseAuth> mAuth = new MutableLiveData<FirebaseAuth>();
     private MutableLiveData<FirebaseUser> firebaseUser = new MutableLiveData<FirebaseUser>();
     private MutableLiveData<FirebaseFirestore> firebaseFirestore = new MutableLiveData<FirebaseFirestore>();
+
 
 
     public UserViewModel() {
@@ -47,6 +51,14 @@ public class UserViewModel extends ViewModel {
 
     public void setUser(User user) {
         this.user.setValue(user);
+    }
+
+    public MutableLiveData<UserInfoSpecific> getUserInfoSpecificMutableLiveData() {
+        return userInfoSpecificMutableLiveData;
+    }
+
+    public void setUserInfoSpecificMutableLiveData(UserInfoSpecific userInfoSpecificMutableLiveData) {
+        this.userInfoSpecificMutableLiveData.setValue(userInfoSpecificMutableLiveData);
     }
 
     public MutableLiveData<FirebaseAuth> getmAuth() {
@@ -164,5 +176,74 @@ public class UserViewModel extends ViewModel {
         return;
     }
 
+    public void fetchSpecificUserInfos(){
+        if(firebaseUser.getValue()==null) return;
+        DocumentReference docRef = firebaseFirestore.getValue().collection("specificInfos").document(firebaseUser.getValue().getUid());
+
+        Source source = Source.DEFAULT;
+
+        docRef.get(source).addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    // Document found in the offline cache
+                    DocumentSnapshot document = task.getResult();
+                    setUserInfoSpecificMutableLiveData(document.toObject(UserInfoSpecific.class));
+                }
+            }
+        });
+    }
+
+    public MutableLiveData<EditResult> editUserInfos(User user){
+        MutableLiveData<EditResult> resultMutableLiveData = new MutableLiveData<EditResult>();
+
+        String uid = firebaseUser.getValue().getUid();
+
+        FirebaseFirestore db = firebaseFirestore.getValue();
+
+        db.collection("users").document(uid).set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Log.i("echo","Attempting write EDIT USER: "+user.toString());
+                //if success, return true
+                resultMutableLiveData.setValue(new EditResult(true));
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                //if failure, return false
+                Log.w(TAG, "Error writing document", e);
+                resultMutableLiveData.setValue(new EditResult(false));
+            }
+        });
+
+        return resultMutableLiveData;
+    }
+
+    public MutableLiveData<EditResult> editUserSpecificInfos(UserInfoSpecific infos){
+
+        MutableLiveData<EditResult> resultMutableLiveData = new MutableLiveData<EditResult>();
+
+        String uid = firebaseUser.getValue().getUid();
+
+        FirebaseFirestore db = firebaseFirestore.getValue();
+
+        db.collection("specificInfos").document(uid).set(infos).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                //if success, return true
+                resultMutableLiveData.setValue(new EditResult(true));
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                //if failure, return false
+                Log.w(TAG, "Error writing document", e);
+                resultMutableLiveData.setValue(new EditResult(false));
+            }
+        });
+
+        return resultMutableLiveData;
+    }
 
 }

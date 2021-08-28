@@ -3,11 +3,28 @@
     <!-- Toolbar -->
     <string name="toolbar_settings">Settings</string>
     <string name="toolbar_user_info">User Info</string>
+    <string name="toolbar_edit_user_info">Edit your information</string>
+    <string name="toolbar_sign_in">Sign in or register</string>
+    <string name="toolbar_sign_up">Sign Up</string>
 
-    <!-- Buttons -->
+
+
+
+
+    <!-- Home -->
     <string name="button_emergency">Emergency</string>
     <string name="button_relatives">Inform close people</string>
     <string name="button_noise">Make Noise!</string>
+    <string name="button_display_informations">Show your Information</string>
+
+    <!--Show informations -->
+    <string name="text_view_show_information_namesurname_label">Name and Surname</string>
+    <string name="text_view_show_information_email_label">Email</string>
+    <string name="text_view_show_information_phone_label">Phone Number</string>
+    <string name="text_view_show_information_address_label">Address</string>
+
+
+    <!-- Emergency -->
     <string name="emergency_button_sickness">Sickness</string>
     <string name="emergency_button_naturaldisaster">Natural Disaster</string>
     <string name="emergency_button_robbery">Robbery</string>
@@ -53,6 +70,7 @@
     <string name="button_user_info_edit_user_contacts">Edit Contacts</string>
     <string name="button_user_info_edit_user_message_preferences">Edit Message preferences</string>
     <string name="button_user_info_edit_app_priorities">Edit Priorities</string>
+    <string name="button_user_info_logout">Log Out</string>
 
     <!-- Edit User info specific -->
     <string name="text_view_user_info_specific_allergies">Allergies</string>
@@ -61,7 +79,7 @@
     <string name="text_view_user_info_specific_medicines">Medicines</string>
     <string name="text_view_user_info_specific_blood_type">Blood type</string>
     <string name="text_view_user_info_specific_rh">Rh</string>
-    <string name="button_user_info_specific_send">Save Changes</string>
+    <string name="button_save_changes_generic">Save Changes</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

@@ -19,18 +19,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-
-    <TextView
-        android:id="@+id/text_view_user_info_home"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="User Informations"
-        app:layout_constraintBottom_toTopOf="@id/button_emergency"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_home" />
-
-    <Button
+     <Button
         android:id="@+id/button_emergency"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -62,17 +51,16 @@
         android:backgroundTint="@color/help_green"
         android:text="@string/button_noise"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/logout_button"
+        app:layout_constraintBottom_toTopOf="@+id/button_home_display_informations"
         app:layout_constraintEnd_toEndOf="@+id/button_relatives"
         app:layout_constraintStart_toStartOf="@+id/button_relatives"
         app:layout_constraintTop_toBottomOf="@+id/button_relatives" />
 
     <Button
-        android:id="@+id/logout_button"
+        android:id="@+id/button_home_display_informations"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:onClick="logOut"
-        android:text="Log Out"
+        android:text="@string/button_display_informations"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/button_noise"
         app:layout_constraintStart_toStartOf="@+id/button_noise"

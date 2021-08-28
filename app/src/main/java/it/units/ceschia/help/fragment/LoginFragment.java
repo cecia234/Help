@@ -50,7 +50,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener{
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Toolbar myToolbar = (Toolbar) getActivity().findViewById(R.id.toolbar_login);
-        myToolbar.setTitle(R.string.action_sign_in);
+        myToolbar.setTitle(R.string.toolbar_sign_in);
         userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
 
         int[] buttons = {R.id.signin_button, R.id.signup_button};

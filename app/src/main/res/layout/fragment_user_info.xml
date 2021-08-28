@@ -68,6 +68,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
         android:text="Telephone"
+        android:textColor="#424242"
         app:layout_constraintBottom_toTopOf="@+id/horizontal_guideline_user_info_25"
         app:layout_constraintEnd_toStartOf="@+id/vertical_guideline_user_info_50"
         app:layout_constraintStart_toStartOf="parent"
@@ -135,57 +136,85 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/horizontal_guideline_user_info_25">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/user_info_constraint_layout_buttons"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
             <Button
                 android:id="@+id/button_user_info_edit_user_info"
                 style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/button_user_info_edit_user_info"
+                app:layout_constraintBottom_toTopOf="@+id/button_user_info_add_specific_infos"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
 
             <Button
                 android:id="@+id/button_user_info_add_specific_infos"
                 style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/button_user_info_edit_user_info_specific"
+                app:layout_constraintBottom_toTopOf="@+id/button_user_info_contacts"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/button_user_info_edit_user_info" />
 
             <Button
                 android:id="@+id/button_user_info_contacts"
                 style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/button_user_info_edit_user_contacts"
+                app:layout_constraintBottom_toTopOf="@+id/button_user_info_message_preferences"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/button_user_info_add_specific_infos" />
 
             <Button
                 android:id="@+id/button_user_info_message_preferences"
                 style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/button_user_info_edit_user_message_preferences"
+                app:layout_constraintBottom_toTopOf="@+id/button_user_info_priorities"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/button_user_info_contacts" />
 
             <Button
                 android:id="@+id/button_user_info_priorities"
                 style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/button_user_info_edit_app_priorities"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/button_user_info_message_preferences" />
+
+            <Button
+                android:id="@+id/button_user_info_logout"
+                style="@android:style/Widget.DeviceDefault.Button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#F44336"
+                android:onClick="logOut"
+                android:text="@string/button_user_info_logout"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent" />
 
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

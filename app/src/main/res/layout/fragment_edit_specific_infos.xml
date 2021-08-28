@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:labelFor="@id/edit_text_edit_spec_infos_diseases"
-            android:text="@string/text_view_user_info_specific_blood_type"
+            android:text="@string/text_view_user_info_specific_diseases"
             app:layout_constraintStart_toStartOf="@+id/edit_text_edit_spec_infos_diseases"
             app:layout_constraintTop_toBottomOf="@+id/edit_text_edit_spec_infos_allergies" />
 
@@ -50,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="@string/text_view_user_info_specific_blood_type"
+            android:hint="@string/text_view_user_info_specific_diseases"
             android:inputType="textPersonName"
             android:minHeight="48dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -141,11 +141,11 @@
             app:layout_constraintTop_toBottomOf="@+id/text_view_edit_spec_infos_rh" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/button_user_info_specific_save_changes"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="@string/button_user_info_specific_send"
+            android:text="@string/button_save_changes_generic"
             app:layout_constraintEnd_toEndOf="@+id/edit_text_edit_spec_infos_rh"
             app:layout_constraintStart_toStartOf="@+id/edit_text_edit_spec_infos_rh"
             app:layout_constraintTop_toBottomOf="@+id/edit_text_edit_spec_infos_rh" />

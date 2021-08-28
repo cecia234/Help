@@ -1,6 +1,6 @@
 package it.units.ceschia.help.fragment;
 
-import static it.units.ceschia.help.utility.ViewsUtility.getTextFromEditTextView;
+import static it.units.ceschia.help.utility.ViewsUtility.getTextFromTextView;
 
 import android.os.Bundle;
 
@@ -16,13 +16,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
+import androidx.appcompat.widget.Toolbar;
 
 import it.units.ceschia.help.R;
-import it.units.ceschia.help.entity.LoginResult;
 import it.units.ceschia.help.entity.SignupResult;
 import it.units.ceschia.help.entity.User;
-import it.units.ceschia.help.utility.ViewsUtility;
 import it.units.ceschia.help.viewmodel.UserViewModel;
 
 public class SignUpFragment extends Fragment {
@@ -49,6 +47,10 @@ public class SignUpFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        Toolbar signUpToolbar = (Toolbar)getActivity().findViewById(R.id.toolbar_sign_up);
+        signUpToolbar.setTitle(R.string.toolbar_sign_up);
+
         int[] signUpFieldIds = {R.id.edit_text_prompt_name,R.id.edit_text_prompt_surname,R.id.edit_text_prompt_email_signin,R.id.edit_text_prompt_pw_signin,R.id.edit_text_prompt_phone,R.id.edit_text_prompt_country,R.id.edit_text_prompt_city,R.id.edit_text_prompt_address};
 
         //Ricordo controllo pw
@@ -57,14 +59,14 @@ public class SignUpFragment extends Fragment {
 
         Button signUpButton = (Button) view.findViewById(R.id.signup_button_send);
         signUpButton.setOnClickListener(v->{
-            String email = getTextFromEditTextView(view,R.id.edit_text_prompt_email_signup);
-            String pw = getTextFromEditTextView(view,R.id.edit_text_prompt_pw_signup);
-            String name = getTextFromEditTextView(view,R.id.edit_text_prompt_name);
-            String surname = getTextFromEditTextView(view,R.id.edit_text_prompt_surname);
-            String phoneNumber = getTextFromEditTextView(view,R.id.edit_text_prompt_phone);
-            String country = getTextFromEditTextView(view,R.id.edit_text_prompt_country);
-            String city = getTextFromEditTextView(view,R.id.edit_text_prompt_city);
-            String address = getTextFromEditTextView(view,R.id.edit_text_prompt_address);
+            String email = getTextFromTextView(view,R.id.edit_text_prompt_email_signup);
+            String pw = getTextFromTextView(view,R.id.edit_text_prompt_pw_signup);
+            String name = getTextFromTextView(view,R.id.edit_text_prompt_name);
+            String surname = getTextFromTextView(view,R.id.edit_text_prompt_surname);
+            String phoneNumber = getTextFromTextView(view,R.id.edit_text_prompt_phone);
+            String country = getTextFromTextView(view,R.id.edit_text_prompt_country);
+            String city = getTextFromTextView(view,R.id.edit_text_prompt_city);
+            String address = getTextFromTextView(view,R.id.edit_text_prompt_address);
 
             User user = new User(name,surname,email,phoneNumber,country,city,address);
 

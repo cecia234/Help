@@ -1,5 +1,6 @@
 package it.units.ceschia.help.fragment;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -75,6 +76,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
 
         userViewModel.fetchUserInfos();
+        userViewModel.fetchSpecificUserInfos();
 
         userViewModel.getFirebaseUser().observe(getViewLifecycleOwner(), (Observer<FirebaseUser>) user -> {
             if (user != null) {
@@ -84,13 +86,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             }
         });
 
-        userViewModel.getUser().observe(getViewLifecycleOwner(), (Observer<User>) user -> {
-            String userInfos = user != null ? userViewModel.getUser().getValue().toString() : "no user infos";
-            TextView userinfoTV = (TextView) getActivity().findViewById(R.id.text_view_user_info_home);
-            userinfoTV.setText(userInfos);
-        });
-
-        int[] buttons = {R.id.button_emergency, R.id.button_relatives, R.id.button_noise};
+        int[] buttons = {R.id.button_emergency, R.id.button_relatives, R.id.button_noise,R.id.button_home_display_informations};
         for (int button : buttons) {
             Button b = view.findViewById(button);
             b.setOnClickListener(this);
@@ -111,7 +107,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.button_noise:
                 Log.i("echo", "clickD");
-                nc.navigate(R.id.action_homeFragment_to_noiseFragment);
+                final MediaPlayer mp = MediaPlayer.create(this.getContext(), R.raw.ring);
+                mp.start();
+                //nc.navigate(R.id.action_homeFragment_to_noiseFragment);
+                break;
+            case R.id.button_home_display_informations:
+                Log.i("echo", "clickD");
+                nc.navigate(R.id.action_homeFragment_to_showInformationFragment);
                 break;
         }
     }

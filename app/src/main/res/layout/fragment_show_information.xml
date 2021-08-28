@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraint_layout_show_information"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.ShowInformationFragment">
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_view_basic_info_shower"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/card_view_specific_info_shower"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_weight="1">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_basic_info_shower"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#EAE3E3">
+
+            <TextView
+                android:id="@+id/text_view_show_info_name_surname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="TextView"
+                app:layout_constraintBottom_toTopOf="@+id/text_view_show_info_email"
+                app:layout_constraintStart_toStartOf="@+id/guideline6"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_view_show_info_name_surname_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="sans-serif"
+                android:text="@string/text_view_show_information_namesurname_label"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/text_view_show_info_email_label"
+                app:layout_constraintEnd_toStartOf="@+id/guideline6"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_view_show_info_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                app:layout_constraintBaseline_toBaselineOf="@+id/text_view_show_info_email_label"
+                app:layout_constraintStart_toStartOf="@+id/text_view_show_info_name_surname" />
+
+            <TextView
+                android:id="@+id/text_view_show_info_email_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-black"
+                android:text="@string/text_view_show_information_email_label"
+                app:layout_constraintBottom_toTopOf="@+id/text_view_show_info_phone_label"
+                app:layout_constraintEnd_toStartOf="@+id/guideline6"
+                app:layout_constraintStart_toStartOf="@+id/text_view_show_info_name_surname_label"
+                app:layout_constraintTop_toBottomOf="@+id/text_view_show_info_name_surname_label" />
+
+            <TextView
+                android:id="@+id/text_view_show_info_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                app:layout_constraintBottom_toTopOf="@+id/text_view_show_info_address"
+                app:layout_constraintStart_toStartOf="@+id/text_view_show_info_email"
+                app:layout_constraintTop_toBottomOf="@+id/text_view_show_info_email" />
+
+            <TextView
+                android:id="@+id/text_view_show_info_phone_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-black"
+                android:text="@string/text_view_show_information_phone_label"
+                app:layout_constraintBottom_toTopOf="@+id/text_view_show_info_address_label"
+                app:layout_constraintEnd_toStartOf="@+id/guideline6"
+                app:layout_constraintStart_toStartOf="@+id/text_view_show_info_email_label"
+                app:layout_constraintTop_toBottomOf="@+id/text_view_show_info_email_label" />
+
+            <TextView
+                android:id="@+id/text_view_show_info_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                app:layout_constraintBaseline_toBaselineOf="@+id/text_view_show_info_address_label"
+                app:layout_constraintStart_toStartOf="@+id/text_view_show_info_phone" />
+
+            <TextView
+                android:id="@+id/text_view_show_info_address_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-black"
+                android:text="@string/text_view_show_information_address_label"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline6"
+                app:layout_constraintStart_toStartOf="@+id/text_view_show_info_phone_label"
+                app:layout_constraintTop_toBottomOf="@+id/text_view_show_info_phone_label" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.25" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_view_specific_info_shower"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/card_view_basic_info_shower"
+        app:layout_constraintVertical_weight="3">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_specific_info_shower"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#EAE3E3"
+            android:elevation="4dp"
+            tools:layout_editor_absoluteX="-103dp"
+            tools:layout_editor_absoluteY="-10dp">
+
+            <View
+                android:id="@+id/view_layout_separator_line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_view_show_info_allergies"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="TextView"
+                app:layout_constraintBottom_toTopOf="@+id/text_view_show_info_diseases"
+                app:layout_constraintStart_toStartOf="@+id/guideline5"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="spread" />
+
+            <TextView
+                android:id="@+id/text_view_show_info_allergies_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:fontFamily="sans-serif-black"
+                android:text="@string/text_view_user_info_specific_allergies"
+                app:layout_constraintBottom_toTopOf="@+id/text_view_show_info_diseases_label"
+                app:layout_constraintEnd_toStartOf="@+id/guideline5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_view_show_info_diseases"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                app:layout_constraintBottom_toTopOf="@+id/text_view_show_info_vaccines"
+                app:layout_constraintStart_toStartOf="@+id/text_view_show_info_allergies"
+                app:layout_constraintTop_toBottomOf="@+id/text_view_show_info_allergies" />
+
+            <TextView
+                android:id="@+id/text_view_show_info_diseases_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-black"
+                android:text="@string/text_view_user_info_specific_diseases"
+                app:layout_constraintBottom_toTopOf="@+id/text_view_show_info_vaccines_label"
+                app:layout_constraintEnd_toStartOf="@+id/guideline5"
+                app:layout_constraintStart_toStartOf="@+id/text_view_show_info_allergies_label"
+                app:layout_constraintTop_toBottomOf="@+id/text_view_show_info_allergies_label" />
+
+            <TextView
+                android:id="@+id/text_view_show_info_vaccines"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                app:layout_constraintBottom_toTopOf="@+id/text_view_show_info_medicines"
+                app:layout_constraintStart_toStartOf="@+id/text_view_show_info_diseases"
+                app:layout_constraintTop_toBottomOf="@+id/text_view_show_info_diseases" />
+
+            <TextView
+                android:id="@+id/text_view_show_info_vaccines_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-black"
+                android:text="@string/text_view_user_info_specific_vaccines"
+                app:layout_constraintBottom_toTopOf="@+id/text_view_show_info_medicines_label"
+                app:layout_constraintEnd_toStartOf="@+id/guideline5"
+                app:layout_constraintStart_toStartOf="@+id/text_view_show_info_diseases_label"
+                app:layout_constraintTop_toBottomOf="@+id/text_view_show_info_diseases_label" />
+
+            <TextView
+                android:id="@+id/text_view_show_info_medicines"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                app:layout_constraintBottom_toTopOf="@+id/text_view_show_info_blood_type"
+                app:layout_constraintStart_toStartOf="@+id/text_view_show_info_vaccines"
+                app:layout_constraintTop_toBottomOf="@+id/text_view_show_info_vaccines" />
+
+            <TextView
+                android:id="@+id/text_view_show_info_medicines_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-black"
+                android:text="@string/text_view_user_info_specific_medicines"
+                app:layout_constraintBottom_toTopOf="@+id/text_view_show_info_blood_type_label"
+                app:layout_constraintEnd_toStartOf="@+id/guideline5"
+                app:layout_constraintStart_toStartOf="@+id/text_view_show_info_vaccines_label"
+                app:layout_constraintTop_toBottomOf="@+id/text_view_show_info_vaccines_label" />
+
+            <TextView
+                android:id="@+id/text_view_show_info_blood_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                app:layout_constraintBottom_toTopOf="@+id/text_view_show_info_rh"
+                app:layout_constraintStart_toStartOf="@+id/text_view_show_info_medicines"
+                app:layout_constraintTop_toBottomOf="@+id/text_view_show_info_medicines" />
+
+            <TextView
+                android:id="@+id/text_view_show_info_blood_type_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-black"
+                android:text="@string/text_view_user_info_specific_blood_type"
+                app:layout_constraintBottom_toTopOf="@+id/text_view_show_info_rh_label"
+                app:layout_constraintEnd_toStartOf="@+id/guideline5"
+                app:layout_constraintStart_toStartOf="@+id/text_view_show_info_medicines_label"
+                app:layout_constraintTop_toBottomOf="@+id/text_view_show_info_medicines_label" />
+
+            <TextView
+                android:id="@+id/text_view_show_info_rh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/text_view_show_info_blood_type"
+                app:layout_constraintTop_toBottomOf="@+id/text_view_show_info_blood_type" />
+
+            <TextView
+                android:id="@+id/text_view_show_info_rh_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-black"
+                android:text="@string/text_view_user_info_specific_rh"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline5"
+                app:layout_constraintStart_toStartOf="@+id/text_view_show_info_blood_type_label"
+                app:layout_constraintTop_toBottomOf="@+id/text_view_show_info_blood_type_label" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.25" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
