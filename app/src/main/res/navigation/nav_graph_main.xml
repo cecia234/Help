@@ -119,6 +119,9 @@
         <action
             android:id="@+id/action_userInfoFragment_to_editInfosFragment"
             app:destination="@id/editInfosFragment" />
+        <action
+            android:id="@+id/action_userInfoFragment_to_contactsFragment"
+            app:destination="@id/editContactsFragment" />
     </fragment>
     <fragment
         android:id="@+id/editSpecificInfosFragment"
@@ -136,8 +139,22 @@
         android:label="fragment_edit_infos"
         tools:layout="@layout/fragment_edit_infos" />
     <fragment
+        android:id="@+id/editContactsFragment"
+        android:name="it.units.ceschia.help.fragment.EditContactsFragment"
+        android:label="fragment_contacts"
+        tools:layout="@layout/fragment_edit_contacts" >
+        <action
+            android:id="@+id/action_editContactsFragment_to_addContactFragment"
+            app:destination="@id/addContactFragment" />
+    </fragment>
+    <fragment
         android:id="@+id/contactsFragment"
         android:name="it.units.ceschia.help.fragment.ContactsFragment"
         android:label="fragment_contacts"
         tools:layout="@layout/fragment_contacts" />
+    <fragment
+        android:id="@+id/addContactFragment"
+        android:name="it.units.ceschia.help.fragment.AddContactFragment"
+        android:label="fragment_add_contact"
+        tools:layout="@layout/fragment_add_contact" />
 </navigation>

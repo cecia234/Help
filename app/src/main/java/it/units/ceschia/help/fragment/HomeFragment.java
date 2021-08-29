@@ -1,6 +1,9 @@
 package it.units.ceschia.help.fragment;
 
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -21,6 +24,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseUser;
+
+import java.net.URLEncoder;
 
 import it.units.ceschia.help.R;
 import it.units.ceschia.help.entity.User;
@@ -77,6 +82,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         userViewModel.fetchUserInfos();
         userViewModel.fetchSpecificUserInfos();
+        userViewModel.fetchUserContacts();
 
         userViewModel.getFirebaseUser().observe(getViewLifecycleOwner(), (Observer<FirebaseUser>) user -> {
             if (user != null) {

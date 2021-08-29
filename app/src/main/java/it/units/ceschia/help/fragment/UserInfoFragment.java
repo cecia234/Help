@@ -86,7 +86,6 @@ public class UserInfoFragment extends Fragment implements View.OnClickListener {
 
         });
     }
-
     @Override
     public void onClick(View view) {
         final NavController nc = Navigation.findNavController(view);
@@ -101,7 +100,7 @@ public class UserInfoFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.button_user_info_contacts:
                 Log.i("echo", "clickD");
-                //nc.navigate(R.id.noiseFragment);
+                nc.navigate(R.id.action_userInfoFragment_to_contactsFragment);
                 break;
             case R.id.button_user_info_message_preferences:
                 Log.i("echo", "clickD");

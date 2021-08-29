@@ -15,11 +15,17 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.Source;
 
+import java.util.ArrayList;
+
+import it.units.ceschia.help.entity.Contact;
 import it.units.ceschia.help.entity.EditResult;
 import it.units.ceschia.help.entity.LoginResult;
 import it.units.ceschia.help.entity.SignupResult;
@@ -39,8 +45,8 @@ public class UserViewModel extends ViewModel {
         return userContacts;
     }
 
-    public void setUserContacts(MutableLiveData<UserContact> userContacts) {
-        this.userContacts = userContacts;
+    public void setUserContacts(UserContact userContacts) {
+        this.userContacts.setValue(userContacts);
     }
 
     public UserViewModel() {
@@ -160,7 +166,6 @@ public class UserViewModel extends ViewModel {
         return resultMutableLiveData;
     }
 
-
     public void fetchUserInfos(){
         if(firebaseUser.getValue()==null) return;
         DocumentReference docRef = firebaseFirestore.getValue().collection("users").document(firebaseUser.getValue().getUid());
@@ -196,6 +201,27 @@ public class UserViewModel extends ViewModel {
                 }
             }
         });
+    }
+
+    public void fetchUserContacts(){
+        if(firebaseUser.getValue()==null) return;
+        CollectionReference collectionReference = firebaseFirestore.getValue().collection("users/"+firebaseUser.getValue().getUid()+"/contact");
+        collectionReference.get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            ArrayList<Contact> contacts = new ArrayList<Contact>();
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Contact c = document.toObject(Contact.class);
+                                contacts.add(c);
+                            }
+                            setUserContacts(new UserContact(contacts));
+                        } else {
+                            Log.d("echo", "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
     }
 
     public MutableLiveData<EditResult> editUserInfos(User user){
@@ -249,5 +275,7 @@ public class UserViewModel extends ViewModel {
 
         return resultMutableLiveData;
     }
+
+
 
 }

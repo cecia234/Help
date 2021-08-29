@@ -1,17 +1,20 @@
 package it.units.ceschia.help.fragment;
 
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
@@ -21,7 +24,7 @@ import it.units.ceschia.help.entity.UserContact;
 import it.units.ceschia.help.reciclerview.adapter.ContactListAdapter;
 import it.units.ceschia.help.viewmodel.UserViewModel;
 
-public class ContactsFragment extends Fragment {
+public class EditContactsFragment extends Fragment {
 
     private static final String KEY_LAYOUT_MANAGER = "layoutManager";
 
@@ -38,7 +41,7 @@ public class ContactsFragment extends Fragment {
     protected RecyclerView.LayoutManager mLayoutManager;
     protected ArrayList<Contact> mDataset;
 
-    public ContactsFragment() {
+    public EditContactsFragment() {
         // Required empty public constructor
     }
 
@@ -55,8 +58,26 @@ public class ContactsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        Toolbar myToolbar = (Toolbar) getActivity().findViewById(R.id.toolbar_edit_contacts);
+        myToolbar.setTitle(R.string.toolbar_edit_contacts);
+        myToolbar.inflateMenu(R.menu.menu_edit_contact);
+        myToolbar.setOnMenuItemClickListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.toolbar_action_add_contact:
+                    //show id to add contact
+                    FragmentManager fm = requireActivity().getSupportFragmentManager();
+                    AddContactFragment addContactDialogFragment = AddContactFragment.newInstance("Some Title");
+                    addContactDialogFragment.show(fm, "fragment_edit_name");
+                    return true;
+                default:
+                    // If we got here, the user's action was not recognized.
+                    // Invoke the superclass to handle it.
+                    return false;
+            }
+        });
+
         // BEGIN_INCLUDE(initializeRecyclerView)
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_contacts);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_edit_contacts);
 
         // LinearLayoutManager is used here, this will layout the elements in a similar fashion
         // to the way ListView would layout elements. The RecyclerView.LayoutManager defines how
@@ -84,7 +105,7 @@ public class ContactsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_contacts, container, false);
+        View view = inflater.inflate(R.layout.fragment_edit_contacts, container, false);
 
 
         return view;

@@ -1,5 +1,6 @@
 package it.units.ceschia.help.reciclerview.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,38 +8,47 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+
 import it.units.ceschia.help.R;
+import it.units.ceschia.help.entity.Contact;
 
-public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
+public class EditContactListAdapter extends RecyclerView.Adapter<EditContactListAdapter.ViewHolder> {
 
-    private String[] localDataSet;
+    private ArrayList<Contact> localDataSet;
 
     /**
      * Provide a reference to the type of views that you are using
      * (custom ViewHolder).
      */
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private final TextView textView;
+        private final TextView nick;
+        private final TextView number;
 
         public ViewHolder(View view) {
             super(view);
             // Define click listener for the ViewHolder's View
 
-            textView = (TextView) view.findViewById(R.id.textView);
+            nick = (TextView) view.findViewById(R.id.text_view_edit_contact_nick);
+            number = (TextView) view.findViewById(R.id.text_view_edit_contact_number);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.i("echo","Clicked ");
+                }
+            });
         }
 
-        public TextView getTextView() {
-            return textView;
+        public TextView getNick() {
+            return nick;
+        }
+        public TextView getNumber() {
+            return number;
         }
     }
 
-    /**
-     * Initialize the dataset of the Adapter.
-     *
-     * @param dataSet String[] containing the data to populate views to be used
-     *                by RecyclerView.
-     */
-    public CustomAdapter(String[] dataSet) {
+
+    public EditContactListAdapter(ArrayList<Contact> dataSet) {
         localDataSet = dataSet;
     }
 
@@ -47,7 +57,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         // Create a new view, which defines the UI of the list item
         View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.text_row_item, viewGroup, false);
+                .inflate(R.layout.edit_contact_list_contact_row, viewGroup, false);
 
         return new ViewHolder(view);
     }
@@ -58,13 +68,18 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
 
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-        viewHolder.getTextView().setText(localDataSet[position]);
+        viewHolder.getNick().setText(localDataSet.get(position).getNick());
+        viewHolder.getNumber().setText(localDataSet.get(position).getPhone());
+
+
+
+
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return localDataSet.length;
+        return localDataSet.size();
     }
 }
 
