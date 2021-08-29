@@ -154,7 +154,7 @@
         tools:layout="@layout/fragment_contacts" />
     <fragment
         android:id="@+id/addContactFragment"
-        android:name="it.units.ceschia.help.fragment.AddContactFragment"
+        android:name="it.units.ceschia.help.fragment.AddContactDialog"
         android:label="fragment_add_contact"
         tools:layout="@layout/fragment_add_contact" />
 </navigation>

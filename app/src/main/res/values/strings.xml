@@ -85,6 +85,7 @@
     <string name="text_view_add_contact_nick">Nick</string>
     <string name="text_view_add_contact_phone">Phone</string>
     <string name="text_view_add_contact_message">Message</string>
+    <string name="text_view_add_contact_email">E-mail</string>
     <string name="button_add_contact">Add contact</string>
 
 
@@ -179,6 +180,15 @@
         "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
         "when a user tries to pick up one of cards.\n\n"
     </string>
+    <string name="title_activity_main2">MainActivity2</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
 
 </resources>

@@ -41,7 +41,10 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
                     Intent i = new Intent(Intent.ACTION_VIEW);
 
                     try {
-                        String url = "https://api.whatsapp.com/send?phone=+39"+ number.getText()+"&text=" + URLEncoder.encode("prova", "UTF-8");
+
+                        String text= "Ciao, le mie coordinate attuali sono: \n latitudine: ";
+
+                        String url = "https://api.whatsapp.com/send?phone=+39"+ number.getText()+"&text=" + URLEncoder.encode(text, "UTF-8");
                         i.setPackage("com.whatsapp");
                         i.setData(Uri.parse(url));
                         if (i.resolveActivity(packageManager) != null) {

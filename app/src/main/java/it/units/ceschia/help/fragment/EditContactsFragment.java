@@ -16,6 +16,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.ArrayList;
 
 import it.units.ceschia.help.R;
@@ -50,9 +52,10 @@ public class EditContactsFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
-        initDataset();
 
     }
+
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -60,19 +63,12 @@ public class EditContactsFragment extends Fragment {
 
         Toolbar myToolbar = (Toolbar) getActivity().findViewById(R.id.toolbar_edit_contacts);
         myToolbar.setTitle(R.string.toolbar_edit_contacts);
-        myToolbar.inflateMenu(R.menu.menu_edit_contact);
-        myToolbar.setOnMenuItemClickListener(item -> {
-            switch (item.getItemId()) {
-                case R.id.toolbar_action_add_contact:
-                    //show id to add contact
-                    FragmentManager fm = requireActivity().getSupportFragmentManager();
-                    AddContactFragment addContactDialogFragment = AddContactFragment.newInstance("Some Title");
-                    addContactDialogFragment.show(fm, "fragment_edit_name");
-                    return true;
-                default:
-                    // If we got here, the user's action was not recognized.
-                    // Invoke the superclass to handle it.
-                    return false;
+        FloatingActionButton fab = view.findViewById(R.id.float_action_button);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fm = requireActivity().getSupportFragmentManager();
+                AddContactDialog.display(fm);
             }
         });
 
@@ -107,6 +103,7 @@ public class EditContactsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_edit_contacts, container, false);
 
+        initDataset();
 
         return view;
     }

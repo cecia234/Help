@@ -5,7 +5,7 @@
     android:id="@+id/constraint_layout_add_contact"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.AddContactFragment" >
+    tools:context=".fragment.AddContactDialog" >
 
     <ScrollView
         android:layout_width="match_parent"
@@ -38,8 +38,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:ems="10"
+                android:hint="@string/text_view_add_contact_name"
                 android:inputType="textPersonName"
-                android:text="Name"
+                android:minHeight="48dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_view_add_contact_name_label" />
@@ -60,7 +61,8 @@
                 android:layout_marginTop="8dp"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="Name"
+                android:minHeight="48dp"
+                android:hint="@string/text_view_add_contact_surname"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_view_add_contact_nick_label" />
@@ -81,7 +83,8 @@
                 android:layout_marginTop="8dp"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="Name"
+                android:minHeight="48dp"
+                android:hint="@string/text_view_add_contact_nick"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_view_add_contact_surname_label" />
@@ -93,16 +96,18 @@
                 android:layout_marginTop="8dp"
                 android:ems="10"
                 android:inputType="phone"
+                android:minHeight="48dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_view_add_contact_phone_label" />
+                app:layout_constraintTop_toBottomOf="@+id/text_view_add_contact_phone_label"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <TextView
                 android:id="@+id/text_view_add_contact_phone_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="@string/text_view_add_contact_phone"
+                android:hint="@string/text_view_add_contact_phone"
                 app:layout_constraintStart_toStartOf="@+id/edit_text_add_contact_phone"
                 app:layout_constraintTop_toBottomOf="@+id/edit_text_add_contact_nick" />
 
@@ -113,30 +118,53 @@
                 android:layout_marginTop="16dp"
                 android:text="@string/text_view_add_contact_message"
                 app:layout_constraintStart_toStartOf="@+id/edit_text_add_contact_message"
-                app:layout_constraintTop_toBottomOf="@+id/edit_text_add_contact_phone" />
+                app:layout_constraintTop_toBottomOf="@+id/edit_text_add_contact_email" />
 
             <EditText
                 android:id="@+id/edit_text_add_contact_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="12dp"
                 android:ems="10"
                 android:gravity="start|top"
+                android:hint="@string/text_view_add_contact_message"
                 android:inputType="textMultiLine"
+                android:minHeight="48dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_view_add_contact_message_label" />
 
             <Button
                 android:id="@+id/button_add_contact"
-                android:layout_width="0dp"
+                android:layout_width="209dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:text="@string/button_add_contact"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/edit_text_add_contact_message"
                 app:layout_constraintStart_toStartOf="@+id/edit_text_add_contact_message"
                 app:layout_constraintTop_toBottomOf="@+id/edit_text_add_contact_message" />
+
+            <TextView
+                android:id="@+id/text_view_add_contact_email_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/text_view_add_contact_email"
+                app:layout_constraintStart_toStartOf="@+id/edit_text_add_contact_email"
+                app:layout_constraintTop_toBottomOf="@+id/edit_text_add_contact_phone" />
+
+            <EditText
+                android:id="@+id/edit_text_add_contact_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:hint="@string/text_view_add_contact_email"
+                android:inputType="textEmailAddress"
+                android:minHeight="48dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_view_add_contact_email_label" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
