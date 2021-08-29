@@ -3,10 +3,8 @@ package it.units.ceschia.help.viewmodel;
 import static android.content.ContentValues.TAG;
 
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -14,7 +12,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseNetworkException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -23,7 +20,6 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Source;
 
-import it.units.ceschia.help.MainActivity;
 import it.units.ceschia.help.entity.EditResult;
 import it.units.ceschia.help.entity.LoginResult;
 import it.units.ceschia.help.entity.SignupResult;
@@ -33,7 +29,7 @@ import it.units.ceschia.help.entity.UserInfoSpecific;
 
 public class UserViewModel extends ViewModel {
     private MutableLiveData<User> user = new MutableLiveData<User>();
-    private MutableLiveData<UserInfoSpecific> userInfoSpecificMutableLiveData = new MutableLiveData<UserInfoSpecific>();
+    private MutableLiveData<UserInfoSpecific> userInfoSpecific = new MutableLiveData<UserInfoSpecific>();
     private MutableLiveData<UserContact> userContacts = new MutableLiveData<UserContact>();
     private MutableLiveData<FirebaseAuth> mAuth = new MutableLiveData<FirebaseAuth>();
     private MutableLiveData<FirebaseUser> firebaseUser = new MutableLiveData<FirebaseUser>();
@@ -61,12 +57,12 @@ public class UserViewModel extends ViewModel {
         this.user.setValue(user);
     }
 
-    public MutableLiveData<UserInfoSpecific> getUserInfoSpecificMutableLiveData() {
-        return userInfoSpecificMutableLiveData;
+    public MutableLiveData<UserInfoSpecific> getUserInfoSpecific() {
+        return userInfoSpecific;
     }
 
-    public void setUserInfoSpecificMutableLiveData(UserInfoSpecific userInfoSpecificMutableLiveData) {
-        this.userInfoSpecificMutableLiveData.setValue(userInfoSpecificMutableLiveData);
+    public void setUserInfoSpecific(UserInfoSpecific userInfoSpecific) {
+        this.userInfoSpecific.setValue(userInfoSpecific);
     }
 
     public MutableLiveData<FirebaseAuth> getmAuth() {
@@ -196,7 +192,7 @@ public class UserViewModel extends ViewModel {
                 if (task.isSuccessful()) {
                     // Document found in the offline cache
                     DocumentSnapshot document = task.getResult();
-                    setUserInfoSpecificMutableLiveData(document.toObject(UserInfoSpecific.class));
+                    setUserInfoSpecific(document.toObject(UserInfoSpecific.class));
                 }
             }
         });

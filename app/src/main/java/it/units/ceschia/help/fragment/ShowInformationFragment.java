@@ -1,8 +1,6 @@
 package it.units.ceschia.help.fragment;
 
-import static it.units.ceschia.help.utility.ViewsUtility.getEditText;
 import static it.units.ceschia.help.utility.ViewsUtility.getTextView;
-import static it.units.ceschia.help.utility.ViewsUtility.setEditTextWithNullCheck;
 import static it.units.ceschia.help.utility.ViewsUtility.setTextViewWithNullCheck;
 
 import android.os.Bundle;
@@ -16,7 +14,6 @@ import androidx.lifecycle.ViewModelProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import it.units.ceschia.help.R;
 import it.units.ceschia.help.entity.User;
@@ -55,8 +52,8 @@ public class ShowInformationFragment extends Fragment {
             setTextViewWithNullCheck(getTextView(view, R.id.text_view_show_info_address),user.getAddress() + ", " + user.getCity() + ", " + user.getCountry());
         });
 
-        if (userViewModel.getUserInfoSpecificMutableLiveData().getValue() != null) {
-            userViewModel.getUserInfoSpecificMutableLiveData().observe(getViewLifecycleOwner(), (Observer<UserInfoSpecific>) userSpec -> {
+        if (userViewModel.getUserInfoSpecific().getValue() != null) {
+            userViewModel.getUserInfoSpecific().observe(getViewLifecycleOwner(), (Observer<UserInfoSpecific>) userSpec -> {
                 setTextViewWithNullCheck(getTextView(view, R.id.text_view_show_info_allergies),userSpec.getAllergies());
                 setTextViewWithNullCheck(getTextView(view, R.id.text_view_show_info_diseases),userSpec.getDiseases());
                 setTextViewWithNullCheck(getTextView(view, R.id.text_view_show_info_vaccines),userSpec.getVaccines());

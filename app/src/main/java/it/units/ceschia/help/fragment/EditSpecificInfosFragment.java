@@ -66,8 +66,8 @@ public class EditSpecificInfosFragment extends Fragment {
         EditText bloodTypeEditText= getEditText(getView(),R.id.edit_text_edit_spec_infos_blood_type);
         EditText rhEditText= getEditText(getView(),R.id.edit_text_edit_spec_infos_rh);
 
-        if(userViewModel.getUserInfoSpecificMutableLiveData().getValue()!=null){
-            userViewModel.getUserInfoSpecificMutableLiveData().observe(getViewLifecycleOwner(), (Observer<UserInfoSpecific>) infos -> {
+        if(userViewModel.getUserInfoSpecific().getValue()!=null){
+            userViewModel.getUserInfoSpecific().observe(getViewLifecycleOwner(), (Observer<UserInfoSpecific>) infos -> {
                 setEditTextWithNullCheck(allergiesEditText,infos.getAllergies());
                 setEditTextWithNullCheck(diseasesEditText,infos.getDiseases());
                 setEditTextWithNullCheck(vaccinesEditText,infos.getVaccines());

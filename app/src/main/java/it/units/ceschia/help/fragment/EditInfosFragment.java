@@ -71,7 +71,7 @@ public class EditInfosFragment extends Fragment {
         EditText cityEditText= getEditText(getView(),R.id.edit_text_edit_user_info_city);
         EditText addressEditText= getEditText(getView(),R.id.edit_text_edit_user_info_address);
 
-        if(userViewModel.getUserInfoSpecificMutableLiveData().getValue()!=null){
+        if(userViewModel.getUserInfoSpecific().getValue()!=null){
             userViewModel.getUser().observe(getViewLifecycleOwner(), (Observer<User>) user -> {
                 setEditTextWithNullCheck(nameEditText, user.getName());
                 setEditTextWithNullCheck(surnameEditText, user.getSurname());
