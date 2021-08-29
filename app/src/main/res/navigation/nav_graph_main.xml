@@ -44,6 +44,9 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_homeFragment_to_contactsFragment"
+            app:destination="@id/contactsFragment" />
     </fragment>
     <fragment
         android:id="@+id/emergencyFragment"
@@ -132,4 +135,9 @@
         android:name="it.units.ceschia.help.fragment.EditInfosFragment"
         android:label="fragment_edit_infos"
         tools:layout="@layout/fragment_edit_infos" />
+    <fragment
+        android:id="@+id/contactsFragment"
+        android:name="it.units.ceschia.help.fragment.ContactsFragment"
+        android:label="fragment_contacts"
+        tools:layout="@layout/fragment_contacts" />
 </navigation>

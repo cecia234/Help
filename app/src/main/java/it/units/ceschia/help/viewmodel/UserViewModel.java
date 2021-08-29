@@ -28,16 +28,24 @@ import it.units.ceschia.help.entity.EditResult;
 import it.units.ceschia.help.entity.LoginResult;
 import it.units.ceschia.help.entity.SignupResult;
 import it.units.ceschia.help.entity.User;
+import it.units.ceschia.help.entity.UserContact;
 import it.units.ceschia.help.entity.UserInfoSpecific;
 
 public class UserViewModel extends ViewModel {
     private MutableLiveData<User> user = new MutableLiveData<User>();
     private MutableLiveData<UserInfoSpecific> userInfoSpecificMutableLiveData = new MutableLiveData<UserInfoSpecific>();
+    private MutableLiveData<UserContact> userContacts = new MutableLiveData<UserContact>();
     private MutableLiveData<FirebaseAuth> mAuth = new MutableLiveData<FirebaseAuth>();
     private MutableLiveData<FirebaseUser> firebaseUser = new MutableLiveData<FirebaseUser>();
     private MutableLiveData<FirebaseFirestore> firebaseFirestore = new MutableLiveData<FirebaseFirestore>();
 
+    public MutableLiveData<UserContact> getUserContacts() {
+        return userContacts;
+    }
 
+    public void setUserContacts(MutableLiveData<UserContact> userContacts) {
+        this.userContacts = userContacts;
+    }
 
     public UserViewModel() {
         this.user.setValue(null);
