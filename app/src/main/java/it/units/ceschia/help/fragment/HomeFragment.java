@@ -65,7 +65,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         myToolbar.setOnMenuItemClickListener(item -> {
             switch (item.getItemId()) {
                 case R.id.toolbar_action_settings:
-                    nc.navigate(R.id.settingsFragment);
+                    nc.navigate(R.id.action_homeFragment_to_settingsFragment);
                     return true;
                 case R.id.toolbar_action_user_info:
                     Log.i("echo", "parawea");

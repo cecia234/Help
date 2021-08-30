@@ -24,6 +24,7 @@ import it.units.ceschia.help.R;
 import it.units.ceschia.help.entity.Contact;
 import it.units.ceschia.help.entity.UserContact;
 import it.units.ceschia.help.reciclerview.adapter.ContactListAdapter;
+import it.units.ceschia.help.reciclerview.adapter.EditContactListAdapter;
 import it.units.ceschia.help.viewmodel.UserViewModel;
 
 public class EditContactsFragment extends Fragment {
@@ -39,7 +40,7 @@ public class EditContactsFragment extends Fragment {
     protected LayoutManagerType mCurrentLayoutManagerType;
 
     protected RecyclerView mRecyclerView;
-    protected ContactListAdapter mAdapter;
+    protected EditContactListAdapter mAdapter;
     protected RecyclerView.LayoutManager mLayoutManager;
     protected ArrayList<Contact> mDataset;
 
@@ -54,8 +55,6 @@ public class EditContactsFragment extends Fragment {
         userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
 
     }
-
-
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -90,7 +89,7 @@ public class EditContactsFragment extends Fragment {
         setRecyclerViewLayoutManager(mCurrentLayoutManagerType);
 
 
-        mAdapter = new ContactListAdapter(mDataset);
+        mAdapter = new EditContactListAdapter(mDataset);
         // Set ContactListAdapter as the adapter for RecyclerView.
         mRecyclerView.setAdapter(mAdapter);
         // END_INCLUDE(initializeRecyclerView)

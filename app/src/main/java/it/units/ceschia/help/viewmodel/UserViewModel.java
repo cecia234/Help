@@ -226,6 +226,7 @@ public class UserViewModel extends ViewModel {
                             ArrayList<Contact> contacts = new ArrayList<Contact>();
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Contact c = document.toObject(Contact.class);
+                                c.setFbId(document.getId());
                                 contacts.add(c);
                             }
                             setUserContacts(new UserContact(contacts));
@@ -307,6 +308,37 @@ public class UserViewModel extends ViewModel {
         return resultMutableLiveData;
     }
 
+    public MutableLiveData<EditResult> editContact(Contact contact){
+        MutableLiveData<EditResult> resultMutableLiveData = new MutableLiveData<>();
+
+        String uid = firebaseUser.getValue().getUid();
+
+        FirebaseFirestore db = firebaseFirestore.getValue();
+
+        db.collection("users/"+uid+"/contact").document(contact.getFbId()).update(
+                "name",contact.getName(),
+                "surname",contact.getSurname(),
+                "nick",contact.getNick(),
+                "mail",contact.getMail(),
+                "phone",contact.getPhone(),
+                "message",contact.getMessage()
+                ).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                //if success, return true
+                resultMutableLiveData.setValue(new EditResult(true));
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                //if failure, return false
+                Log.w(TAG, "Error writing document", e);
+                resultMutableLiveData.setValue(new EditResult(false));
+            }
+        });
+
+        return resultMutableLiveData;
+    }
 
 
 

@@ -17,6 +17,7 @@ import java.util.ArrayList;
 
 import it.units.ceschia.help.R;
 import it.units.ceschia.help.entity.Contact;
+import it.units.ceschia.help.entity.Position;
 import it.units.ceschia.help.entity.UserContact;
 import it.units.ceschia.help.reciclerview.adapter.ContactListAdapter;
 import it.units.ceschia.help.viewmodel.UserViewModel;
@@ -37,6 +38,7 @@ public class ContactsFragment extends Fragment {
     protected ContactListAdapter mAdapter;
     protected RecyclerView.LayoutManager mLayoutManager;
     protected ArrayList<Contact> mDataset;
+    protected Position pos;
 
     public ContactsFragment() {
         // Required empty public constructor
@@ -48,6 +50,7 @@ public class ContactsFragment extends Fragment {
 
         userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
         initDataset();
+        getLoc();
 
     }
 
@@ -73,7 +76,7 @@ public class ContactsFragment extends Fragment {
         setRecyclerViewLayoutManager(mCurrentLayoutManagerType);
 
 
-        mAdapter = new ContactListAdapter(mDataset);
+        mAdapter = new ContactListAdapter(mDataset,pos);
         // Set ContactListAdapter as the adapter for RecyclerView.
         mRecyclerView.setAdapter(mAdapter);
         // END_INCLUDE(initializeRecyclerView)
@@ -90,11 +93,6 @@ public class ContactsFragment extends Fragment {
         return view;
     }
 
-    /**
-     * Set RecyclerView's LayoutManager to the one given.
-     *
-     * @param layoutManagerType Type of layout manager to switch to.
-     */
     public void setRecyclerViewLayoutManager(LayoutManagerType layoutManagerType) {
         int scrollPosition = 0;
 
@@ -128,6 +126,15 @@ public class ContactsFragment extends Fragment {
         UserContact userContact = userViewModel.getUserContacts().getValue();
         if (userContact != null) {
             mDataset = userContact.getContacts();
+        } else {
+            Log.i("echo", "userContact null!!!");
+        }
+    }
+    private void getLoc() {
+        // Initialize dataset
+        Position position = userViewModel.getPosition().getValue();
+        if (position != null) {
+            this.pos = position;
         } else {
             Log.i("echo", "userContact null!!!");
         }

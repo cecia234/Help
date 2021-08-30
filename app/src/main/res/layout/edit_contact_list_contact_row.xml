@@ -34,6 +34,7 @@
                 android:id="@+id/text_view_edit_contact_nick"
                 android:layout_width="134dp"
                 android:layout_height="wrap_content"
+                android:clickable="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/text_view_edit_contact_number"
                 app:layout_constraintHorizontal_bias="0.5"

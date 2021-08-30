@@ -95,6 +95,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:ems="10"
+                android:hint="@string/text_view_add_contact_phone"
                 android:inputType="phone"
                 android:minHeight="48dp"
                 app:layout_constraintEnd_toEndOf="parent"

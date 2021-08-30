@@ -1,6 +1,7 @@
 package it.units.ceschia.help.entity;
 
 public class Contact {
+    private String fbId;
     private String name;
     private String surname;
     private String phone;
@@ -77,6 +78,14 @@ public class Contact {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getFbId() {
+        return fbId;
+    }
+
+    public void setFbId(String fbId) {
+        this.fbId = fbId;
     }
 
     @Override
