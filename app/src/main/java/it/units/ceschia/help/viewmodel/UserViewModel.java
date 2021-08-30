@@ -2,6 +2,8 @@ package it.units.ceschia.help.viewmodel;
 
 import static android.content.ContentValues.TAG;
 
+import static java.lang.System.currentTimeMillis;
+
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -12,6 +14,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -24,9 +27,12 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.Source;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import it.units.ceschia.help.entity.Contact;
 import it.units.ceschia.help.entity.EditResult;
+import it.units.ceschia.help.entity.HelpRequest;
+import it.units.ceschia.help.entity.HelpRequestType;
 import it.units.ceschia.help.entity.LoginResult;
 import it.units.ceschia.help.entity.Position;
 import it.units.ceschia.help.entity.SignupResult;
@@ -337,6 +343,26 @@ public class UserViewModel extends ViewModel {
             }
         });
 
+        return resultMutableLiveData;
+    }
+
+    public MutableLiveData<EditResult> sendHelpRequest(User user, Position position, HelpRequestType requestType){
+        MutableLiveData<EditResult> resultMutableLiveData = new MutableLiveData<>();
+
+        String uid = firebaseUser.getValue().getUid();
+
+        FirebaseFirestore db = firebaseFirestore.getValue();
+
+        Timestamp time = new Timestamp(new Date());
+
+        HelpRequest request = new HelpRequest(uid,user,position,requestType, time,false);
+
+        db.collection("helpRequests/").add(request).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            @Override
+            public void onSuccess(DocumentReference documentReference) {
+                resultMutableLiveData.setValue(new EditResult(true));
+            }
+        });
         return resultMutableLiveData;
     }
 

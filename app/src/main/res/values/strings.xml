@@ -25,7 +25,7 @@
     <!-- Emergency -->
     <string name="emergency_button_sickness">Sickness</string>
     <string name="emergency_button_naturaldisaster">Natural Disaster</string>
-    <string name="emergency_button_robbery">Robbery</string>
+    <string name="emergency_button_theft">Theft</string>
     <string name="emergency_button_homeviolence">Home Violence</string>
 
     <!-- Preference Titles -->
@@ -98,7 +98,6 @@
     <string name="latitude">Latitude: </string>
     <string name="longitude">Longitude: </string>
     <string name="altitude">Altitude: </string>
-
 
 
 </resources>
