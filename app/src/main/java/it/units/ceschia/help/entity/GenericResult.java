@@ -1,12 +1,12 @@
 package it.units.ceschia.help.entity;
 
-public class EditResult {
+public class GenericResult {
     public boolean success;
 
-    public EditResult() {
+    public GenericResult() {
     }
 
-    public EditResult(boolean success) {
+    public GenericResult(boolean success) {
         this.success = success;
     }
 }

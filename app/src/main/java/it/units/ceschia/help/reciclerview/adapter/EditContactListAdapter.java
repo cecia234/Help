@@ -35,6 +35,10 @@ public class EditContactListAdapter extends RecyclerView.Adapter<EditContactList
         this.mContext = recyclerView.getContext();
     }
 
+    public void setLocalDataSet(ArrayList<Contact> localDataSet) {
+        this.localDataSet = localDataSet;
+    }
+
     /**
      * Provide a reference to the type of views that you are using
      * (custom ViewHolder).

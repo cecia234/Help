@@ -1,9 +1,6 @@
 package it.units.ceschia.help.fragment;
 
-import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,18 +14,15 @@ import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseUser;
 
-import java.net.URLEncoder;
-
 import it.units.ceschia.help.R;
-import it.units.ceschia.help.entity.User;
+import it.units.ceschia.help.entity.GenericResult;
 import it.units.ceschia.help.viewmodel.UserViewModel;
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
@@ -81,8 +75,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
 
         userViewModel.fetchUserInfos();
-        userViewModel.fetchSpecificUserInfos();
-        userViewModel.fetchUserContacts();
 
         userViewModel.getFirebaseUser().observe(getViewLifecycleOwner(), (Observer<FirebaseUser>) user -> {
             if (user != null) {
@@ -92,7 +84,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             }
         });
 
-        int[] buttons = {R.id.button_emergency, R.id.button_relatives, R.id.button_noise,R.id.button_home_display_informations};
+        int[] buttons = {R.id.button_emergency, R.id.button_relatives, R.id.button_noise, R.id.button_home_display_informations};
         for (int button : buttons) {
             Button b = view.findViewById(button);
             b.setOnClickListener(this);
@@ -104,12 +96,19 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         final NavController nc = Navigation.findNavController(view);
         switch (view.getId()) {
             case R.id.button_emergency:
-                Log.i("echo", "clickB");
                 nc.navigate(R.id.action_homeFragment_to_emergencyFragment);
                 break;
             case R.id.button_relatives:
-                Log.i("echo", "clickC");
-                nc.navigate(R.id.action_homeFragment_to_contactsFragment);
+                userViewModel.fetchUserContacts().observe(requireActivity(), (Observer<? super GenericResult>) res -> {
+                    if (res.success) {
+                        Log.i("echo", "updating UUI");
+                        nc.navigate(R.id.action_homeFragment_to_contactsFragment);
+                    }else{
+                        String s = "error fetching specific contact infos";
+                        Log.i("echo", s);
+                        Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
+                    }
+                });
                 break;
             case R.id.button_noise:
                 Log.i("echo", "clickD");
@@ -118,8 +117,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 //nc.navigate(R.id.action_homeFragment_to_noiseFragment);
                 break;
             case R.id.button_home_display_informations:
-                Log.i("echo", "clickD");
-                nc.navigate(R.id.action_homeFragment_to_showInformationFragment);
+                userViewModel.fetchSpecificUserInfos().observe(requireActivity(), (Observer<? super GenericResult>) res -> {
+                    if (res.success) {
+                        Log.i("echo", "updating UUI");
+                        nc.navigate(R.id.action_homeFragment_to_showInformationFragment);
+                    }else{
+                        String s = "error fetching specific user infos";
+                        Log.i("echo", s);
+                        Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
+                    }
+                });
                 break;
         }
     }

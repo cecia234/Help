@@ -51,9 +51,18 @@ public class EditContactsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+        initDataset();
+    }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_edit_contacts, container, false);
+
+        initDataset();
+
+        return view;
     }
 
     @Override
@@ -67,7 +76,7 @@ public class EditContactsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 FragmentManager fm = requireActivity().getSupportFragmentManager();
-                AddContactDialog.display(fm);
+                AddContactDialog.display(fm,mAdapter,mDataset);
             }
         });
 
@@ -89,22 +98,16 @@ public class EditContactsFragment extends Fragment {
         setRecyclerViewLayoutManager(mCurrentLayoutManagerType);
 
 
-        mAdapter = new EditContactListAdapter(mDataset);
-        // Set ContactListAdapter as the adapter for RecyclerView.
-        mRecyclerView.setAdapter(mAdapter);
-        // END_INCLUDE(initializeRecyclerView)
+
+        if (mAdapter != null) // it works second time and later
+            mAdapter.notifyDataSetChanged(); //TODO: improve cases
+        else { // it works first time
+            mAdapter = new EditContactListAdapter(mDataset);
+            mRecyclerView.setAdapter(mAdapter);
+        }
 
 
-    }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_edit_contacts, container, false);
-
-        initDataset();
-
-        return view;
     }
 
     /**

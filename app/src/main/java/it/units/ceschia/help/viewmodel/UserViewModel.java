@@ -2,8 +2,6 @@ package it.units.ceschia.help.viewmodel;
 
 import static android.content.ContentValues.TAG;
 
-import static java.lang.System.currentTimeMillis;
-
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -30,7 +28,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import it.units.ceschia.help.entity.Contact;
-import it.units.ceschia.help.entity.EditResult;
+import it.units.ceschia.help.entity.GenericResult;
 import it.units.ceschia.help.entity.HelpRequest;
 import it.units.ceschia.help.entity.HelpRequestType;
 import it.units.ceschia.help.entity.LoginResult;
@@ -49,21 +47,13 @@ public class UserViewModel extends ViewModel {
     private MutableLiveData<FirebaseFirestore> firebaseFirestore = new MutableLiveData<FirebaseFirestore>();
     private MutableLiveData<Position> position = new MutableLiveData<Position>();
 
-
-
-    public MutableLiveData<UserContact> getUserContacts() {
-        return userContacts;
-    }
-
-    public void setUserContacts(UserContact userContacts) {
-        this.userContacts.setValue(userContacts);
-    }
-
     public UserViewModel() {
         this.user.setValue(null);
         this.mAuth.setValue(null);
         this.firebaseUser.setValue(null);
     }
+
+
 
     public MutableLiveData<User> getUser() {
         return user;
@@ -79,6 +69,14 @@ public class UserViewModel extends ViewModel {
 
     public void setUserInfoSpecific(UserInfoSpecific userInfoSpecific) {
         this.userInfoSpecific.setValue(userInfoSpecific);
+    }
+
+    public MutableLiveData<UserContact> getUserContacts() {
+        return userContacts;
+    }
+
+    public void setUserContacts(UserContact userContacts) {
+        this.userContacts.setValue(userContacts);
     }
 
     public MutableLiveData<FirebaseAuth> getmAuth() {
@@ -203,8 +201,10 @@ public class UserViewModel extends ViewModel {
         return;
     }
 
-    public void fetchSpecificUserInfos(){
-        if(firebaseUser.getValue()==null) return;
+    public MutableLiveData<GenericResult> fetchSpecificUserInfos(){
+
+        MutableLiveData<GenericResult> resultMutableLiveData = new MutableLiveData<>();
+        if(firebaseUser.getValue()==null) resultMutableLiveData.setValue(new GenericResult(false));
         DocumentReference docRef = firebaseFirestore.getValue().collection("specificInfos").document(firebaseUser.getValue().getUid());
 
         Source source = Source.DEFAULT;
@@ -216,13 +216,21 @@ public class UserViewModel extends ViewModel {
                     // Document found in the offline cache
                     DocumentSnapshot document = task.getResult();
                     setUserInfoSpecific(document.toObject(UserInfoSpecific.class));
+                    resultMutableLiveData.setValue(new GenericResult(true));
+
+                } else {
+                    Log.d("echo", "Error getting documents: ", task.getException());
                 }
             }
         });
+
+        return resultMutableLiveData;
     }
 
-    public void fetchUserContacts(){
-        if(firebaseUser.getValue()==null) return;
+    public MutableLiveData<GenericResult> fetchUserContacts(){
+        MutableLiveData<GenericResult> resultMutableLiveData = new MutableLiveData<>();
+        if(firebaseUser.getValue()==null) resultMutableLiveData.setValue(new GenericResult(false));
+
         CollectionReference collectionReference = firebaseFirestore.getValue().collection("users/"+firebaseUser.getValue().getUid()+"/contact");
         collectionReference.get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -236,15 +244,17 @@ public class UserViewModel extends ViewModel {
                                 contacts.add(c);
                             }
                             setUserContacts(new UserContact(contacts));
+                            resultMutableLiveData.setValue(new GenericResult(true));
                         } else {
                             Log.d("echo", "Error getting documents: ", task.getException());
                         }
                     }
                 });
+        return resultMutableLiveData;
     }
 
-    public MutableLiveData<EditResult> editUserInfos(User user){
-        MutableLiveData<EditResult> resultMutableLiveData = new MutableLiveData<EditResult>();
+    public MutableLiveData<GenericResult> editUserInfos(User user){
+        MutableLiveData<GenericResult> resultMutableLiveData = new MutableLiveData<GenericResult>();
 
         String uid = firebaseUser.getValue().getUid();
 
@@ -255,23 +265,23 @@ public class UserViewModel extends ViewModel {
             public void onSuccess(Void aVoid) {
                 Log.i("echo","Attempting write EDIT USER: "+user.toString());
                 //if success, return true
-                resultMutableLiveData.setValue(new EditResult(true));
+                resultMutableLiveData.setValue(new GenericResult(true));
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 //if failure, return false
                 Log.w(TAG, "Error writing document", e);
-                resultMutableLiveData.setValue(new EditResult(false));
+                resultMutableLiveData.setValue(new GenericResult(false));
             }
         });
 
         return resultMutableLiveData;
     }
 
-    public MutableLiveData<EditResult> editUserSpecificInfos(UserInfoSpecific infos){
+    public MutableLiveData<GenericResult> editUserSpecificInfos(UserInfoSpecific infos){
 
-        MutableLiveData<EditResult> resultMutableLiveData = new MutableLiveData<EditResult>();
+        MutableLiveData<GenericResult> resultMutableLiveData = new MutableLiveData<GenericResult>();
 
         String uid = firebaseUser.getValue().getUid();
 
@@ -281,23 +291,23 @@ public class UserViewModel extends ViewModel {
             @Override
             public void onSuccess(Void aVoid) {
                 //if success, return true
-                resultMutableLiveData.setValue(new EditResult(true));
+                resultMutableLiveData.setValue(new GenericResult(true));
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 //if failure, return false
                 Log.w(TAG, "Error writing document", e);
-                resultMutableLiveData.setValue(new EditResult(false));
+                resultMutableLiveData.setValue(new GenericResult(false));
             }
         });
 
         return resultMutableLiveData;
     }
 
-    public MutableLiveData<EditResult> addContact(Contact contact){
+    public MutableLiveData<GenericResult> addContact(Contact contact){
 
-        MutableLiveData<EditResult> resultMutableLiveData = new MutableLiveData<>();
+        MutableLiveData<GenericResult> resultMutableLiveData = new MutableLiveData<>();
 
         String uid = firebaseUser.getValue().getUid();
 
@@ -306,16 +316,15 @@ public class UserViewModel extends ViewModel {
         db.collection("users/"+uid+"/contact").add(contact).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
-                fetchUserContacts();
-                resultMutableLiveData.setValue(new EditResult(true));
+                resultMutableLiveData.setValue(new GenericResult(true));
             }
         });
 
         return resultMutableLiveData;
     }
 
-    public MutableLiveData<EditResult> editContact(Contact contact){
-        MutableLiveData<EditResult> resultMutableLiveData = new MutableLiveData<>();
+    public MutableLiveData<GenericResult> editContact(Contact contact){
+        MutableLiveData<GenericResult> resultMutableLiveData = new MutableLiveData<>();
 
         String uid = firebaseUser.getValue().getUid();
 
@@ -332,22 +341,22 @@ public class UserViewModel extends ViewModel {
             @Override
             public void onSuccess(Void aVoid) {
                 //if success, return true
-                resultMutableLiveData.setValue(new EditResult(true));
+                resultMutableLiveData.setValue(new GenericResult(true));
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 //if failure, return false
                 Log.w(TAG, "Error writing document", e);
-                resultMutableLiveData.setValue(new EditResult(false));
+                resultMutableLiveData.setValue(new GenericResult(false));
             }
         });
 
         return resultMutableLiveData;
     }
 
-    public MutableLiveData<EditResult> sendHelpRequest(User user, Position position, HelpRequestType requestType){
-        MutableLiveData<EditResult> resultMutableLiveData = new MutableLiveData<>();
+    public MutableLiveData<GenericResult> sendHelpRequest(User user, Position position, HelpRequestType requestType){
+        MutableLiveData<GenericResult> resultMutableLiveData = new MutableLiveData<>();
 
         String uid = firebaseUser.getValue().getUid();
 
@@ -360,11 +369,15 @@ public class UserViewModel extends ViewModel {
         db.collection("helpRequests/").add(request).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
-                resultMutableLiveData.setValue(new EditResult(true));
+                resultMutableLiveData.setValue(new GenericResult(true));
             }
         });
         return resultMutableLiveData;
     }
+
+
+
+
 
 
 

@@ -18,10 +18,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseUser;
 
 import it.units.ceschia.help.R;
+import it.units.ceschia.help.entity.GenericResult;
 import it.units.ceschia.help.entity.User;
 import it.units.ceschia.help.viewmodel.UserViewModel;
 
@@ -96,11 +98,29 @@ public class UserInfoFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.button_user_info_add_specific_infos:
                 Log.i("echo", "clickC");
-                nc.navigate(R.id.action_userInfoFragment_to_editSpecificInfosFragment);
+                userViewModel.fetchSpecificUserInfos().observe(requireActivity(),result -> {
+                    if (result.success) {
+                        Log.i("echo", "updating UUI");
+                        nc.navigate(R.id.action_userInfoFragment_to_editSpecificInfosFragment);
+                    }else{
+                        String s = "error fetching specific contact infos";
+                        Log.i("echo", s);
+                        Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
+                    }
+                });
                 break;
             case R.id.button_user_info_contacts:
                 Log.i("echo", "clickD");
-                nc.navigate(R.id.action_userInfoFragment_to_contactsFragment);
+                userViewModel.fetchUserContacts().observe(requireActivity(), result->{
+                    if (result.success) {
+                        Log.i("echo", "updating UUI");
+                        nc.navigate(R.id.action_userInfoFragment_to_contactsFragment);
+                    }else{
+                        String s = "error fetching specific contact infos";
+                        Log.i("echo", s);
+                        Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
+                    }
+                });
                 break;
             case R.id.button_user_info_message_preferences:
                 Log.i("echo", "clickD");

@@ -21,7 +21,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import it.units.ceschia.help.R;
-import it.units.ceschia.help.entity.EditResult;
+import it.units.ceschia.help.entity.GenericResult;
 import it.units.ceschia.help.entity.UserInfoSpecific;
 import it.units.ceschia.help.viewmodel.UserViewModel;
 
@@ -48,7 +48,6 @@ public class EditSpecificInfosFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        userViewModel.fetchSpecificUserInfos();
 
         setEditTextsValues();
 
@@ -89,7 +88,7 @@ public class EditSpecificInfosFragment extends Fragment {
 
         UserInfoSpecific newInfoSpecific = new UserInfoSpecific(allergies,diseases,vaccines,medicines,bloodType,rh);
 
-        userViewModel.editUserSpecificInfos(newInfoSpecific).observe(requireActivity(), (Observer<EditResult>) result -> {
+        userViewModel.editUserSpecificInfos(newInfoSpecific).observe(requireActivity(), (Observer<GenericResult>) result -> {
             if (result.success) {
                 NavHostFragment.findNavController(this).popBackStack();
             } else {

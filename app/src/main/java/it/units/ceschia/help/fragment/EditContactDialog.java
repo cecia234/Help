@@ -7,11 +7,8 @@ import static it.units.ceschia.help.utility.ViewsUtility.setEditTextWithNullChec
 import android.app.Dialog;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -25,7 +22,7 @@ import android.widget.Toast;
 
 import it.units.ceschia.help.R;
 import it.units.ceschia.help.entity.Contact;
-import it.units.ceschia.help.entity.EditResult;
+import it.units.ceschia.help.entity.GenericResult;
 import it.units.ceschia.help.viewmodel.UserViewModel;
 
 public class EditContactDialog extends DialogFragment {
@@ -112,7 +109,7 @@ public class EditContactDialog extends DialogFragment {
         Contact newContact = new Contact(name,surname,phone,mail,null,nick,message);
         newContact.setFbId(contact.getFbId());
 
-        userViewModel.editContact(newContact).observe(requireActivity(), (Observer<EditResult>) result -> {
+        userViewModel.editContact(newContact).observe(requireActivity(), (Observer<GenericResult>) result -> {
             if (result.success) {
                 Log.i("echo","Edit succeded");
                 Toast.makeText(getContext(),"Edit Succeded",Toast.LENGTH_LONG).show();

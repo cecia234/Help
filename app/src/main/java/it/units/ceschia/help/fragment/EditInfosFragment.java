@@ -22,7 +22,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import it.units.ceschia.help.R;
-import it.units.ceschia.help.entity.EditResult;
+import it.units.ceschia.help.entity.GenericResult;
 import it.units.ceschia.help.entity.User;
 import it.units.ceschia.help.viewmodel.UserViewModel;
 
@@ -95,7 +95,7 @@ public class EditInfosFragment extends Fragment {
 
         User newUser = new User(name,surname,userViewModel.getUser().getValue().getEmail(),telephone,country,city,address);
 
-        userViewModel.editUserInfos(newUser).observe(requireActivity(), (Observer<EditResult>) result -> {
+        userViewModel.editUserInfos(newUser).observe(requireActivity(), (Observer<GenericResult>) result -> {
             if (result.success) {
                 NavHostFragment.findNavController(this).popBackStack();
             } else {
