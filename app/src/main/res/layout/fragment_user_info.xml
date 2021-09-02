@@ -172,34 +172,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/button_user_info_edit_user_contacts"
-                app:layout_constraintBottom_toTopOf="@+id/button_user_info_message_preferences"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/button_user_info_add_specific_infos" />
-
-            <Button
-                android:id="@+id/button_user_info_message_preferences"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@string/button_user_info_edit_user_message_preferences"
-                app:layout_constraintBottom_toTopOf="@+id/button_user_info_priorities"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/button_user_info_contacts" />
-
-            <Button
-                android:id="@+id/button_user_info_priorities"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@string/button_user_info_edit_app_priorities"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/button_user_info_message_preferences" />
 
             <Button
                 android:id="@+id/button_user_info_logout"

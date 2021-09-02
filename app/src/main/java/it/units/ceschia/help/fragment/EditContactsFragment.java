@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -149,7 +150,7 @@ public class EditContactsFragment extends Fragment {
         if (userContact != null) {
             mDataset = userContact.getContacts();
         } else {
-            Log.i("echo", "userContact null!!!");
+            Toast.makeText(getContext(),"error", Toast.LENGTH_SHORT).show();
         }
     }
 }

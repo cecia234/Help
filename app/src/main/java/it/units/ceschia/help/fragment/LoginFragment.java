@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import it.units.ceschia.help.R;
 import it.units.ceschia.help.entity.LoginResult;
@@ -66,7 +67,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener{
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.signin_button:
-                Log.i("echo", "clickSignIn");
                 EditText mailEditText = (EditText) view.getRootView().findViewById(R.id.edit_text_prompt_email_signin);
                 EditText pwEditText = (EditText) view.getRootView().findViewById(R.id.edit_text_prompt_pw_signin);
                 String email = mailEditText.getText().toString();
@@ -75,7 +75,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener{
                 login(email, password);
                 break;
             case R.id.signup_button:
-                Log.i("echo", "clickSignup");
                 NavController nc = Navigation.findNavController(view);
                 nc.navigate(R.id.signUpFragment);
                 break;
@@ -86,9 +85,9 @@ public class LoginFragment extends Fragment implements View.OnClickListener{
         userViewModel.login(email, password).observe(requireActivity(), (Observer<LoginResult>) result -> {
             if (result.success) {
                 NavHostFragment.findNavController(this).navigate(R.id.action_loginFragment_to_homeFragment);
+                Toast.makeText(getContext(), getString(R.string.login_success), Toast.LENGTH_SHORT).show();
             } else {
-                //showErrorMessage();
-                Log.i("echo","Login Failed");
+                Toast.makeText(getContext(), getString(R.string.login_failed), Toast.LENGTH_SHORT).show();
             }
         });
     }

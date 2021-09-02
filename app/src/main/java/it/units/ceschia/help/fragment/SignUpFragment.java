@@ -16,6 +16,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
+
 import androidx.appcompat.widget.Toolbar;
 
 import it.units.ceschia.help.R;
@@ -69,9 +71,6 @@ public class SignUpFragment extends Fragment {
             String address = getTextFromTextView(view,R.id.edit_text_prompt_address);
 
             User user = new User(name,surname,email,phoneNumber,country,city,address);
-
-            Log.i("echo","Email: "+email+" passowrd: " + pw);
-            Log.i("echo",user.toString());
             signup(user,pw);
         });
 
@@ -81,9 +80,10 @@ public class SignUpFragment extends Fragment {
         userViewModel.signUpUser(user,password).observe(requireActivity(), (Observer<SignupResult>) result -> {
             if (result.success) {
                 NavHostFragment.findNavController(this).navigate(R.id.action_signUpFragment_to_homeFragment);
+
+                Toast.makeText(getContext(), getString(R.string.signup_success), Toast.LENGTH_SHORT).show();
             } else {
-                //showErrorMessage();
-                Log.i("echo","Login Failed");
+                Toast.makeText(getContext(), getString(R.string.signup_failed), Toast.LENGTH_SHORT).show();
             }
         });
     }

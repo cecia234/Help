@@ -14,17 +14,6 @@
             android:id="@+id/action_homeFragment_to_emergencyFragment"
             app:destination="@id/emergencyFragment" />
         <action
-            android:id="@+id/action_homeFragment_to_relativesFragment"
-            app:destination="@id/relativesFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_noiseFragment"
-            app:destination="@id/noiseFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment"
-            app:popUpTo="@id/settingsFragment"
-            app:popUpToInclusive="true"/>
-        <action
             android:id="@+id/action_homeFragment_to_loginFragment"
             app:destination="@id/loginFragment"
             app:launchSingleTop="true"
@@ -53,20 +42,6 @@
         android:name="it.units.ceschia.help.fragment.EmergencyFragment"
         android:label="fragment_emergency"
         tools:layout="@layout/fragment_emergency" />
-    <fragment
-        android:id="@+id/relativesFragment"
-        android:name="it.units.ceschia.help.fragment.RelativesFragment"
-        android:label="fragment_relatives"
-        tools:layout="@layout/fragment_relatives" />
-    <fragment
-        android:id="@+id/noiseFragment"
-        android:name="it.units.ceschia.help.fragment.NoiseFragment"
-        android:label="fragment_noise"
-        tools:layout="@layout/fragment_noise" />
-    <fragment
-        android:id="@+id/settingsFragment"
-        android:name="it.units.ceschia.help.fragment.SettingsFragment"
-        android:label="SettingsFragment" />
     <fragment
         android:id="@+id/loginFragment"
         android:name="it.units.ceschia.help.fragment.LoginFragment"

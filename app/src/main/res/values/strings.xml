@@ -78,6 +78,7 @@
     <string name="text_view_user_info_specific_blood_type">Blood type</string>
     <string name="text_view_user_info_specific_rh">Rh</string>
     <string name="button_save_changes_generic">Save Changes</string>
+    <string name="missing_info">Missing Information</string>
 
     <!--Add contact-->
     <string name="text_view_add_contact_name">Name</string>
@@ -86,6 +87,7 @@
     <string name="text_view_add_contact_phone">Phone</string>
     <string name="text_view_add_contact_message">Message</string>
     <string name="text_view_add_contact_email">E-mail</string>
+    <string name="text_view_priorities">Priorities</string>
     <string name="button_add_contact">Add contact</string>
 
 
@@ -98,6 +100,13 @@
     <string name="latitude">Latitude: </string>
     <string name="longitude">Longitude: </string>
     <string name="altitude">Altitude: </string>
+    <string name="text_view_add_contact_telegram">Telegram username</string>
+    <string name="result_edit_success">Edit completed with success!</string>
+    <string name="result_edit_failed">Edit Failed</string>
+    <string name="result_add_success">Contact added</string>
+    <string name="login_success">Login success</string>
+    <string name="signup_failed">Sign up Failed</string>
+    <string name="signup_success">Sign up Succeeded</string>
 
 
 </resources>

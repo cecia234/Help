@@ -1,31 +1,26 @@
 package it.units.ceschia.help.reciclerview.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
-import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
 import it.units.ceschia.help.R;
 import it.units.ceschia.help.entity.Contact;
-import it.units.ceschia.help.fragment.AddContactDialog;
 import it.units.ceschia.help.fragment.EditContactDialog;
 
 public class EditContactListAdapter extends RecyclerView.Adapter<EditContactListAdapter.ViewHolder> {
 
     private ArrayList<Contact> localDataSet;
     private RecyclerView mRecyclerView;
-    private ArrayList<Contact> mList;
     private Context mContext;
 
     @Override
@@ -70,6 +65,7 @@ public class EditContactListAdapter extends RecyclerView.Adapter<EditContactList
     }
 
     // Create new views (invoked by the layout manager)
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         // Create a new view, which defines the UI of the list item
@@ -77,16 +73,13 @@ public class EditContactListAdapter extends RecyclerView.Adapter<EditContactList
                 .inflate(R.layout.edit_contact_list_contact_row, viewGroup, false);
 
 
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int itemPosition = mRecyclerView.getChildLayoutPosition(view);
-                Contact item = localDataSet.get(itemPosition);
+        view.setOnClickListener(view1 -> {
+            int itemPosition = mRecyclerView.getChildLayoutPosition(view1);
+            Contact item = localDataSet.get(itemPosition);
 
-                FragmentManager fm = ((AppCompatActivity)mContext).getSupportFragmentManager();
-                EditContactDialog.display(fm,item);
+            FragmentManager fm = ((AppCompatActivity)mContext).getSupportFragmentManager();
+            EditContactDialog.display(fm,item);
 
-            }
         });
         return new ViewHolder(view);
     }

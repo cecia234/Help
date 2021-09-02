@@ -52,7 +52,7 @@
         android:text="@string/button_noise"
         android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/button_home_display_informations"
-        app:layout_constraintEnd_toEndOf="@+id/button_relatives"
+        app:layout_constraintEnd_toStartOf="@+id/button_stop_sound"
         app:layout_constraintStart_toStartOf="@+id/button_relatives"
         app:layout_constraintTop_toBottomOf="@+id/button_relatives" />
 
@@ -62,8 +62,21 @@
         android:layout_height="wrap_content"
         android:text="@string/button_display_informations"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/button_noise"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/button_noise"
         app:layout_constraintTop_toBottomOf="@+id/button_noise" />
+
+    <ImageButton
+        android:id="@+id/button_stop_sound"
+        android:layout_width="50dp"
+        android:layout_height="0dp"
+        android:background="#8BC34A"
+        android:src="@drawable/ic_baseline_stop_24"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/button_home_display_informations"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button_noise"
+        app:layout_constraintTop_toBottomOf="@+id/button_relatives"
+        tools:ignore="SpeakableTextPresentCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

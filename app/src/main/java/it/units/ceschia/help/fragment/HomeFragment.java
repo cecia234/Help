@@ -58,16 +58,17 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         myToolbar.inflateMenu(R.menu.menu);
         myToolbar.setOnMenuItemClickListener(item -> {
             switch (item.getItemId()) {
-                case R.id.toolbar_action_settings:
-                    nc.navigate(R.id.action_homeFragment_to_settingsFragment);
-                    return true;
                 case R.id.toolbar_action_user_info:
-                    Log.i("echo", "parawea");
-                    nc.navigate(R.id.action_homeFragment_to_userInfoFragment);
+                    userViewModel.fetchSpecificUserInfos().observe(requireActivity(), (Observer<? super GenericResult>) res -> {
+                        if (res.success) {
+                            nc.navigate(R.id.action_homeFragment_to_userInfoFragment);
+                        }else{
+                            String s = "error fetching specific user infos";
+                            Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
+                        }
+                    });
                     return true;
                 default:
-                    // If we got here, the user's action was not recognized.
-                    // Invoke the superclass to handle it.
                     return false;
             }
         });
@@ -77,9 +78,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         userViewModel.fetchUserInfos();
 
         userViewModel.getFirebaseUser().observe(getViewLifecycleOwner(), (Observer<FirebaseUser>) user -> {
-            if (user != null) {
-                Log.i("echo", "Logged!!!");
-            } else {
+            if (user==null){
                 nc.navigate(R.id.action_homeFragment_to_loginFragment);
             }
         });
@@ -98,37 +97,44 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             case R.id.button_emergency:
                 nc.navigate(R.id.action_homeFragment_to_emergencyFragment);
                 break;
-            case R.id.button_relatives:
-                userViewModel.fetchUserContacts().observe(requireActivity(), (Observer<? super GenericResult>) res -> {
-                    if (res.success) {
-                        Log.i("echo", "updating UUI");
-                        nc.navigate(R.id.action_homeFragment_to_contactsFragment);
-                    }else{
-                        String s = "error fetching specific contact infos";
-                        Log.i("echo", s);
-                        Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
-                    }
-                });
+            case R.id.button_relatives: nc.navigate(R.id.action_homeFragment_to_contactsFragment);
                 break;
             case R.id.button_noise:
-                Log.i("echo", "clickD");
-                final MediaPlayer mp = MediaPlayer.create(this.getContext(), R.raw.ring);
-                mp.start();
-                //nc.navigate(R.id.action_homeFragment_to_noiseFragment);
+                makeNoise(view);
                 break;
             case R.id.button_home_display_informations:
                 userViewModel.fetchSpecificUserInfos().observe(requireActivity(), (Observer<? super GenericResult>) res -> {
                     if (res.success) {
-                        Log.i("echo", "updating UUI");
                         nc.navigate(R.id.action_homeFragment_to_showInformationFragment);
                     }else{
                         String s = "error fetching specific user infos";
-                        Log.i("echo", s);
                         Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
                     }
                 });
                 break;
-        }
+      }
+    }
+
+    private void makeNoise(View view){
+        final MediaPlayer mp = MediaPlayer.create(this.getContext(), R.raw.ring);
+        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                view.getRootView().findViewById(R.id.button_stop_sound).setVisibility(View.GONE);
+            }
+
+        });
+
+        mp.start();
+        view.getRootView().findViewById(R.id.button_stop_sound).setVisibility(View.VISIBLE);
+        view.getRootView().findViewById(R.id.button_stop_sound).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mp.stop();
+                view.setVisibility(View.GONE);
+            }
+        });
     }
 
 }

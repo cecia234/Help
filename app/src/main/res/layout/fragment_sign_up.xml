@@ -105,8 +105,8 @@
 
             <TextView
                 android:id="@+id/login_city_text_view"
-                android:layout_width="29dp"
-                android:layout_height="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:labelFor="@id/edit_text_prompt_city"
                 android:text="@string/prompt_city"
                 app:layout_constraintBottom_toTopOf="@+id/edit_text_prompt_city"

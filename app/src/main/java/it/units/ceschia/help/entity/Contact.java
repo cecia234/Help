@@ -1,5 +1,7 @@
 package it.units.ceschia.help.entity;
 
+import java.util.HashMap;
+
 public class Contact {
     private String fbId;
     private String name;
@@ -10,7 +12,21 @@ public class Contact {
     private String nick;
     private String message;
 
+
+    private HashMap<String,Application> priorities;
+
     public Contact() {
+    }
+
+    public Contact( String name, String surname, String phone, String mail, String address, String nick, String message, HashMap<String,Application> priorities) {
+        this.name = name;
+        this.surname = surname;
+        this.phone = phone;
+        this.mail = mail;
+        this.address = address;
+        this.nick = nick;
+        this.message = message;
+        this.priorities = priorities;
     }
 
     public Contact(String name, String surname, String phone, String mail, String address, String nick, String message) {
@@ -22,6 +38,8 @@ public class Contact {
         this.nick = nick;
         this.message = message;
     }
+
+
 
     public String getNick() {
         return nick;
@@ -88,15 +106,26 @@ public class Contact {
         this.fbId = fbId;
     }
 
+    public HashMap<String, Application> getPriorities() {
+        return priorities;
+    }
+
+    public void setPriorities(HashMap<String, Application> priorities) {
+        this.priorities = priorities;
+    }
+
     @Override
     public String toString() {
         return "Contact{" +
-                "name='" + name + '\'' +
+                "fbId='" + fbId + '\'' +
+                ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", phone='" + phone + '\'' +
                 ", mail='" + mail + '\'' +
                 ", address='" + address + '\'' +
                 ", nick='" + nick + '\'' +
+                ", message='" + message + '\'' +
+                ", priorities=" + priorities +
                 '}';
     }
 }

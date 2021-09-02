@@ -53,15 +53,13 @@ public class UserInfoFragment extends Fragment implements View.OnClickListener {
         updateInfos();
 
         userViewModel.getFirebaseUser().observe(getViewLifecycleOwner(), (Observer<FirebaseUser>) user -> {
-            if (user != null) {
-                Log.i("echo", "Logged!!!");
-            } else {
+            if (user==null){
                 NavController nc = Navigation.findNavController(view);
                 nc.navigate(R.id.action_userInfoFragment_to_loginFragment);
             }
         });
 
-        int[] buttons = {R.id.button_user_info_edit_user_info, R.id.button_user_info_add_specific_infos, R.id.button_user_info_contacts,R.id.button_user_info_message_preferences,R.id.button_user_info_priorities};
+        int[] buttons = {R.id.button_user_info_edit_user_info, R.id.button_user_info_add_specific_infos, R.id.button_user_info_contacts};
         for (int button : buttons) {
             Button b = view.findViewById(button);
             b.setOnClickListener(this);
@@ -93,42 +91,34 @@ public class UserInfoFragment extends Fragment implements View.OnClickListener {
         final NavController nc = Navigation.findNavController(view);
         switch (view.getId()) {
             case R.id.button_user_info_edit_user_info:
-                Log.i("echo", "clickB");
-                nc.navigate(R.id.action_userInfoFragment_to_editInfosFragment);
+                userViewModel.fetchUserInfos().observe(requireActivity(),result -> {
+                    if (result.success) {
+                        nc.navigate(R.id.action_userInfoFragment_to_editInfosFragment);
+                    }else{
+                        String s = "error fetching contact infos";
+                        Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
+                    }
+                });
                 break;
             case R.id.button_user_info_add_specific_infos:
-                Log.i("echo", "clickC");
                 userViewModel.fetchSpecificUserInfos().observe(requireActivity(),result -> {
                     if (result.success) {
-                        Log.i("echo", "updating UUI");
                         nc.navigate(R.id.action_userInfoFragment_to_editSpecificInfosFragment);
                     }else{
                         String s = "error fetching specific contact infos";
-                        Log.i("echo", s);
                         Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
                     }
                 });
                 break;
             case R.id.button_user_info_contacts:
-                Log.i("echo", "clickD");
                 userViewModel.fetchUserContacts().observe(requireActivity(), result->{
                     if (result.success) {
-                        Log.i("echo", "updating UUI");
                         nc.navigate(R.id.action_userInfoFragment_to_contactsFragment);
                     }else{
                         String s = "error fetching specific contact infos";
-                        Log.i("echo", s);
                         Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
                     }
                 });
-                break;
-            case R.id.button_user_info_message_preferences:
-                Log.i("echo", "clickD");
-                //nc.navigate(R.id.noiseFragment);
-                break;
-            case R.id.button_user_info_priorities:
-                Log.i("echo", "clickD");
-               // nc.navigate(R.id.noiseFragment);
                 break;
         }
     }

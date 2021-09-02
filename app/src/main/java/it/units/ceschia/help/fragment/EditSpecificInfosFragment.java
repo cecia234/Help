@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import it.units.ceschia.help.R;
 import it.units.ceschia.help.entity.GenericResult;
@@ -91,9 +92,9 @@ public class EditSpecificInfosFragment extends Fragment {
         userViewModel.editUserSpecificInfos(newInfoSpecific).observe(requireActivity(), (Observer<GenericResult>) result -> {
             if (result.success) {
                 NavHostFragment.findNavController(this).popBackStack();
+                Toast.makeText(getContext(), getString(R.string.result_edit_success), Toast.LENGTH_SHORT).show();
             } else {
-                //showErrorMessage();
-                Log.i("echo","Edit specific infos Failed");
+                Toast.makeText(getContext(), getString(R.string.result_edit_failed), Toast.LENGTH_SHORT).show();
             }
         });
     }

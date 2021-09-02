@@ -63,12 +63,13 @@ public class ShowInformationFragment extends Fragment {
             });
 
         } else {
-            setTextViewWithNullCheck(getTextView(view, R.id.text_view_show_info_allergies),"missing information");
-            setTextViewWithNullCheck(getTextView(view, R.id.text_view_show_info_diseases),"missing information");
-            setTextViewWithNullCheck(getTextView(view, R.id.text_view_show_info_vaccines),"missing information");
-            setTextViewWithNullCheck(getTextView(view, R.id.text_view_show_info_medicines),"missing information");
-            setTextViewWithNullCheck(getTextView(view, R.id.text_view_show_info_blood_type),"missing information");
-            setTextViewWithNullCheck(getTextView(view, R.id.text_view_show_info_rh),"missing information");
+            String missingInfoText = getString(R.string.missing_info);
+            setTextViewWithNullCheck(getTextView(view, R.id.text_view_show_info_allergies),missingInfoText);
+            setTextViewWithNullCheck(getTextView(view, R.id.text_view_show_info_diseases),missingInfoText);
+            setTextViewWithNullCheck(getTextView(view, R.id.text_view_show_info_vaccines),missingInfoText);
+            setTextViewWithNullCheck(getTextView(view, R.id.text_view_show_info_medicines),missingInfoText);
+            setTextViewWithNullCheck(getTextView(view, R.id.text_view_show_info_blood_type),missingInfoText);
+            setTextViewWithNullCheck(getTextView(view, R.id.text_view_show_info_rh),missingInfoText);
         }
     }
 }
