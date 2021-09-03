@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">Help!</string>
     <string name="toolbar_settings">Impostazioni</string>
+    <string name="toolbar_emergency">Seleziona Emergenza</string>
     <string name="toolbar_user_info">Informazioni Utente</string>
     <string name="toolbar_edit_user_info">Modifica le tue informazioni</string>
     <string name="toolbar_edit_contacts">Modifica Contatti</string>
