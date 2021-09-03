@@ -5,15 +5,6 @@ import static it.units.ceschia.help.utility.ViewsUtility.getTextFromEditText;
 import static it.units.ceschia.help.utility.ViewsUtility.setEditTextWithNullCheck;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.fragment.NavHostFragment;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,8 +12,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
+
 import it.units.ceschia.help.R;
-import it.units.ceschia.help.entity.GenericResult;
 import it.units.ceschia.help.entity.UserInfoSpecific;
 import it.units.ceschia.help.viewmodel.UserViewModel;
 
@@ -52,10 +48,8 @@ public class EditSpecificInfosFragment extends Fragment {
 
         setEditTextsValues();
 
-        Button sendChangesButton = (Button) getView().findViewById(R.id.button_user_info_specific_save_changes);
-        sendChangesButton.setOnClickListener(v->{
-            sendChanges();
-        });
+        Button sendChangesButton = getView().findViewById(R.id.button_user_info_specific_save_changes);
+        sendChangesButton.setOnClickListener(v-> sendChanges());
     }
 
     private void setEditTextsValues(){
@@ -67,7 +61,7 @@ public class EditSpecificInfosFragment extends Fragment {
         EditText rhEditText= getEditText(getView(),R.id.edit_text_edit_spec_infos_rh);
 
         if(userViewModel.getUserInfoSpecific().getValue()!=null){
-            userViewModel.getUserInfoSpecific().observe(getViewLifecycleOwner(), (Observer<UserInfoSpecific>) infos -> {
+            userViewModel.getUserInfoSpecific().observe(getViewLifecycleOwner(), infos -> {
                 setEditTextWithNullCheck(allergiesEditText,infos.getAllergies());
                 setEditTextWithNullCheck(diseasesEditText,infos.getDiseases());
                 setEditTextWithNullCheck(vaccinesEditText,infos.getVaccines());
@@ -89,7 +83,7 @@ public class EditSpecificInfosFragment extends Fragment {
 
         UserInfoSpecific newInfoSpecific = new UserInfoSpecific(allergies,diseases,vaccines,medicines,bloodType,rh);
 
-        userViewModel.editUserSpecificInfos(newInfoSpecific).observe(requireActivity(), (Observer<GenericResult>) result -> {
+        userViewModel.editUserSpecificInfos(newInfoSpecific).observe(requireActivity(), result -> {
             if (result.success) {
                 NavHostFragment.findNavController(this).popBackStack();
                 Toast.makeText(getContext(), getString(R.string.result_edit_success), Toast.LENGTH_SHORT).show();

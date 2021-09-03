@@ -3,16 +3,6 @@ package it.units.ceschia.help.fragment;
 import static it.units.ceschia.help.utility.ViewsUtility.getTextView;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,11 +10,14 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseUser;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import it.units.ceschia.help.R;
-import it.units.ceschia.help.entity.GenericResult;
-import it.units.ceschia.help.entity.User;
 import it.units.ceschia.help.viewmodel.UserViewModel;
 
 public class UserInfoFragment extends Fragment implements View.OnClickListener {
@@ -52,7 +45,7 @@ public class UserInfoFragment extends Fragment implements View.OnClickListener {
         super.onViewCreated(view, savedInstanceState);
         updateInfos();
 
-        userViewModel.getFirebaseUser().observe(getViewLifecycleOwner(), (Observer<FirebaseUser>) user -> {
+        userViewModel.getFirebaseUser().observe(getViewLifecycleOwner(), user -> {
             if (user==null){
                 NavController nc = Navigation.findNavController(view);
                 nc.navigate(R.id.action_userInfoFragment_to_loginFragment);
@@ -75,9 +68,10 @@ public class UserInfoFragment extends Fragment implements View.OnClickListener {
         TextView city = getTextView(getView(),R.id.text_view_userinfo_city);
         TextView address = getTextView(getView(),R.id.text_view_userinfo_address);
 
-        userViewModel.getUser().observe(getViewLifecycleOwner(), (Observer<User>) user -> {
+        userViewModel.getUser().observe(getViewLifecycleOwner(), user -> {
 
-            nameSurname.setText(user.getName() + " " + user.getSurname());
+            String nameSurnameString =user.getName() + " " + user.getSurname();
+            nameSurname.setText(nameSurnameString);
             email.setText(user.getEmail());
             telephone.setText(user.getTelephone());
             country.setText(user.getCountry());

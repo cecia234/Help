@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 
 import it.units.ceschia.help.R;
 import it.units.ceschia.help.entity.Application;
@@ -67,23 +66,17 @@ public class PrioritiesAdapter extends RecyclerView.Adapter<PrioritiesAdapter.Vi
     }
 
     @Override
-    public boolean onItemMove(int fromPosition, int toPosition) {
+    public void onItemMove(int fromPosition, int toPosition) {
         if (fromPosition < toPosition) {
             for (int i = fromPosition; i < toPosition; i++) {
-                Collections.swap((List<?>) priorities, i, i + 1);
+                Collections.swap(priorities, i, i + 1);
             }
         } else {
             for (int i = fromPosition; i > toPosition; i--) {
-                Collections.swap((List<?>) priorities, i, i - 1);
+                Collections.swap(priorities, i, i - 1);
             }
         }
         notifyItemMoved(fromPosition, toPosition);
-        return true;
-    }
-
-    @Override
-    public void onItemDismiss(int position) {
-
     }
 
 

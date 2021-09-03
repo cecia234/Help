@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
@@ -58,7 +59,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
      * Provide a reference to the type of views that you are using
      * (custom ViewHolder).
      */
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView nick;
         private final TextView number;
         private final ImageButton button1;
@@ -71,8 +72,8 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
             // Define click listener for the ViewHolder's View
             //TODO: move this out of constructor and put it in onCreateViewHolder
 
-            nick = (TextView) view.findViewById(R.id.text_view_contact_nick);
-            number = (TextView) view.findViewById(R.id.text_view_contact_number);
+            nick = view.findViewById(R.id.text_view_contact_nick);
+            number = view.findViewById(R.id.text_view_contact_number);
             button1 = view.findViewById(R.id.image_button_contact1);
             button2 = view.findViewById(R.id.image_button_contact2);
             button3 = view.findViewById(R.id.image_button_contact3);
@@ -88,27 +89,24 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
 
             //get density to multiply pixel width and get dp measure
             float factor = view.getContext().getResources().getDisplayMetrics().density;
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    int visibility = buttonLayout.getVisibility();
-                    if (visibility == View.GONE) {
-                        //set card view height to wrap content
-                        cardView.setLayoutParams(new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.WRAP_CONTENT));
-                        //remove text constraint to correctly display buttons
-                        constraintSet.clear(R.id.text_view_contact_nick, ConstraintSet.BOTTOM);
-                        constraintSet.applyTo(constraintLayout);
-                        //set button layout to visible
-                        buttonLayout.setVisibility(View.VISIBLE);
-                    } else {
-                        //reset height of card view to 50dp
-                        cardView.setLayoutParams(new CardView.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, (int) (50 * factor)));
-                        //reset constraint of text views to center text)
-                        constraintSet.connect(R.id.text_view_contact_nick, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM);
-                        constraintSet.applyTo(constraintLayout);
-                        //hide button layout
-                        buttonLayout.setVisibility(View.GONE);
-                    }
+            view.setOnClickListener(view1 -> {
+                int visibility = buttonLayout.getVisibility();
+                if (visibility == View.GONE) {
+                    //set card view height to wrap content
+                    cardView.setLayoutParams(new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.WRAP_CONTENT));
+                    //remove text constraint to correctly display buttons
+                    constraintSet.clear(R.id.text_view_contact_nick, ConstraintSet.BOTTOM);
+                    constraintSet.applyTo(constraintLayout);
+                    //set button layout to visible
+                    buttonLayout.setVisibility(View.VISIBLE);
+                } else {
+                    //reset height of card view to 50dp
+                    cardView.setLayoutParams(new CardView.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, (int) (50 * factor)));
+                    //reset constraint of text views to center text)
+                    constraintSet.connect(R.id.text_view_contact_nick, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM);
+                    constraintSet.applyTo(constraintLayout);
+                    //hide button layout
+                    buttonLayout.setVisibility(View.GONE);
                 }
             });
 
@@ -145,6 +143,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
     }
 
     // Create new views (invoked by the layout manager)
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         // Create a new view, which defines the UI of the list item
@@ -162,33 +161,13 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
         viewHolder.getNumber().setText(localDataSet.get(position).getPhone());
 
         viewHolder.getButton1().setImageDrawable(findImage(viewHolder.getButton1(),position,"1"));
-        viewHolder.getButton1().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sendMessageToSelectedMedium(view, viewHolder.getAdapterPosition(), "1");
-            }
-        });
+        viewHolder.getButton1().setOnClickListener(view -> sendMessageToSelectedMedium(view, viewHolder.getAdapterPosition(), "1"));
         viewHolder.getButton2().setImageDrawable(findImage(viewHolder.getButton2(),position,"2"));
-        viewHolder.getButton2().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sendMessageToSelectedMedium(view, viewHolder.getAdapterPosition(), "2");
-            }
-        });
+        viewHolder.getButton2().setOnClickListener(view -> sendMessageToSelectedMedium(view, viewHolder.getAdapterPosition(), "2"));
         viewHolder.getButton3().setImageDrawable(findImage(viewHolder.getButton3(),position,"3"));
-        viewHolder.getButton3().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sendMessageToSelectedMedium(view, viewHolder.getAdapterPosition(), "3");
-            }
-        });
+        viewHolder.getButton3().setOnClickListener(view -> sendMessageToSelectedMedium(view, viewHolder.getAdapterPosition(), "3"));
         viewHolder.getButton4().setImageDrawable(findImage(viewHolder.getButton4(),position,"4"));
-        viewHolder.getButton4().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sendMessageToSelectedMedium(view, viewHolder.getAdapterPosition(), "4");
-            }
-        });
+        viewHolder.getButton4().setOnClickListener(view -> sendMessageToSelectedMedium(view, viewHolder.getAdapterPosition(), "4"));
 
     }
 
@@ -249,7 +228,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
                 Toast.makeText(mContext, "Message Sent",
                         Toast.LENGTH_LONG).show();
             } catch (Exception ErrVar) {
-                Toast.makeText(mContext, ErrVar.getMessage().toString(),
+                Toast.makeText(mContext, ErrVar.getMessage(),
                         Toast.LENGTH_LONG).show();
                 ErrVar.printStackTrace();
             }
@@ -265,19 +244,19 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
 
         Contact c = localDataSet.get(pos);
         Application app = Application.valueOf(c.getPriorities().get(priority).toString());
-        Drawable drawable = view.getContext().getDrawable(R.drawable.outline_account_circle_24);;
+        Drawable drawable = AppCompatResources.getDrawable(view.getContext(), R.drawable.outline_account_circle_24);
         switch (app){
             case WHATSAPP:
-                drawable = view.getContext().getDrawable(R.drawable.whats);
+                drawable = AppCompatResources.getDrawable(view.getContext(), R.drawable.whats);
                 break;
             case TELEGRAM:
-                drawable = view.getContext().getDrawable(R.drawable.telegram);
+                drawable = AppCompatResources.getDrawable(view.getContext(), R.drawable.telegram);
                 break;
             case CALL:
-                drawable = view.getContext().getDrawable(R.drawable.ic_baseline_call_24);
+                drawable = AppCompatResources.getDrawable(view.getContext(), R.drawable.ic_baseline_call_24);
                 break;
             case SMS:
-                drawable = view.getContext().getDrawable(R.drawable.ic_baseline_message_24);
+                drawable = AppCompatResources.getDrawable(view.getContext(), R.drawable.ic_baseline_message_24);
                 break;
         }
 

@@ -4,20 +4,16 @@ import static it.units.ceschia.help.utility.ViewsUtility.getTextView;
 import static it.units.ceschia.help.utility.ViewsUtility.setTextViewWithNullCheck;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+
 import it.units.ceschia.help.R;
-import it.units.ceschia.help.entity.User;
-import it.units.ceschia.help.entity.UserInfoSpecific;
 import it.units.ceschia.help.viewmodel.UserViewModel;
 
 public class ShowInformationFragment extends Fragment {
@@ -45,7 +41,7 @@ public class ShowInformationFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
-        userViewModel.getUser().observe(getViewLifecycleOwner(), (Observer<User>) user -> {
+        userViewModel.getUser().observe(getViewLifecycleOwner(), user -> {
             setTextViewWithNullCheck(getTextView(view, R.id.text_view_show_info_name_surname),user.getName() + " " + user.getSurname());
             setTextViewWithNullCheck(getTextView(view, R.id.text_view_show_info_email),user.getEmail());
             setTextViewWithNullCheck(getTextView(view, R.id.text_view_show_info_phone),user.getTelephone());
@@ -53,7 +49,7 @@ public class ShowInformationFragment extends Fragment {
         });
 
         if (userViewModel.getUserInfoSpecific().getValue() != null) {
-            userViewModel.getUserInfoSpecific().observe(getViewLifecycleOwner(), (Observer<UserInfoSpecific>) userSpec -> {
+            userViewModel.getUserInfoSpecific().observe(getViewLifecycleOwner(), userSpec -> {
                 setTextViewWithNullCheck(getTextView(view, R.id.text_view_show_info_allergies),userSpec.getAllergies());
                 setTextViewWithNullCheck(getTextView(view, R.id.text_view_show_info_diseases),userSpec.getDiseases());
                 setTextViewWithNullCheck(getTextView(view, R.id.text_view_show_info_vaccines),userSpec.getVaccines());

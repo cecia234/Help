@@ -1,6 +1,10 @@
 package it.units.ceschia.help.fragment;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -11,12 +15,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -24,7 +22,6 @@ import java.util.ArrayList;
 import it.units.ceschia.help.R;
 import it.units.ceschia.help.entity.Contact;
 import it.units.ceschia.help.entity.UserContact;
-import it.units.ceschia.help.reciclerview.adapter.ContactListAdapter;
 import it.units.ceschia.help.reciclerview.adapter.EditContactListAdapter;
 import it.units.ceschia.help.viewmodel.UserViewModel;
 
@@ -70,19 +67,16 @@ public class EditContactsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Toolbar myToolbar = (Toolbar) getActivity().findViewById(R.id.toolbar_edit_contacts);
+        Toolbar myToolbar = getActivity().findViewById(R.id.toolbar_edit_contacts);
         myToolbar.setTitle(R.string.toolbar_edit_contacts);
         FloatingActionButton fab = view.findViewById(R.id.float_action_button);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentManager fm = requireActivity().getSupportFragmentManager();
-                AddContactDialog.display(fm,mAdapter,mDataset);
-            }
+        fab.setOnClickListener(view1 -> {
+            FragmentManager fm = requireActivity().getSupportFragmentManager();
+            AddContactDialog.display(fm,mAdapter,mDataset);
         });
 
         // BEGIN_INCLUDE(initializeRecyclerView)
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_edit_contacts);
+        mRecyclerView = view.findViewById(R.id.recycler_view_edit_contacts);
 
         // LinearLayoutManager is used here, this will layout the elements in a similar fashion
         // to the way ListView would layout elements. The RecyclerView.LayoutManager defines how
@@ -96,7 +90,7 @@ public class EditContactsFragment extends Fragment {
             mCurrentLayoutManagerType = (LayoutManagerType) savedInstanceState
                     .getSerializable(KEY_LAYOUT_MANAGER);
         }
-        setRecyclerViewLayoutManager(mCurrentLayoutManagerType);
+        setRecyclerViewLayoutManager();
 
 
 
@@ -114,9 +108,8 @@ public class EditContactsFragment extends Fragment {
     /**
      * Set RecyclerView's LayoutManager to the one given.
      *
-     * @param layoutManagerType Type of layout manager to switch to.
      */
-    public void setRecyclerViewLayoutManager(LayoutManagerType layoutManagerType) {
+    public void setRecyclerViewLayoutManager() {
         int scrollPosition = 0;
 
         // If a layout manager has already been set, get current scroll position.

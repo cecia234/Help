@@ -40,7 +40,7 @@ public class ContactsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
-        if(mAdapter==null){
+        if (mAdapter == null) {
             mAdapter = new ContactListAdapter();
         }
     }
@@ -48,17 +48,14 @@ public class ContactsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_contacts, container, false);
-
-
-        return view;
+        return inflater.inflate(R.layout.fragment_contacts, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_contacts);
+        mRecyclerView = view.findViewById(R.id.recycler_view_contacts);
         mLayoutManager = new LinearLayoutManager(getActivity());
 
         mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
@@ -68,12 +65,12 @@ public class ContactsFragment extends Fragment {
             mCurrentLayoutManagerType = (LayoutManagerType) savedInstanceState
                     .getSerializable(KEY_LAYOUT_MANAGER);
         }
-        setRecyclerViewLayoutManager(mCurrentLayoutManagerType);
-        userViewModel.fetchContactsContinue(mAdapter,mRecyclerView);
+        setRecyclerViewLayoutManager();
+        userViewModel.fetchContactsContinue(mAdapter, mRecyclerView);
 
     }
 
-    public void setRecyclerViewLayoutManager(LayoutManagerType layoutManagerType) {
+    public void setRecyclerViewLayoutManager() {
         int scrollPosition = 0;
 
         // If a layout manager has already been set, get current scroll position.

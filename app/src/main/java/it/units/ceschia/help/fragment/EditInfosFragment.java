@@ -5,16 +5,6 @@ import static it.units.ceschia.help.utility.ViewsUtility.getTextFromEditText;
 import static it.units.ceschia.help.utility.ViewsUtility.setEditTextWithNullCheck;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.fragment.NavHostFragment;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,8 +12,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
+
 import it.units.ceschia.help.R;
-import it.units.ceschia.help.entity.GenericResult;
 import it.units.ceschia.help.entity.User;
 import it.units.ceschia.help.viewmodel.UserViewModel;
 
@@ -51,17 +47,15 @@ public class EditInfosFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Toolbar myToolbar = (Toolbar) getActivity().findViewById(R.id.toolbar_sign_up);
+        Toolbar myToolbar = getActivity().findViewById(R.id.toolbar_sign_up);
         myToolbar.setTitle(R.string.toolbar_edit_user_info);
 
         userViewModel.fetchUserInfos();
 
         setEditTextsValues();
 
-        Button sendChangesButton = (Button) getView().findViewById(R.id.button_edit_user_info_confirm_changes);
-        sendChangesButton.setOnClickListener(v->{
-            sendChanges();
-        });
+        Button sendChangesButton = getView().findViewById(R.id.button_edit_user_info_confirm_changes);
+        sendChangesButton.setOnClickListener(v-> sendChanges());
     }
 
     private void setEditTextsValues(){
@@ -73,7 +67,7 @@ public class EditInfosFragment extends Fragment {
         EditText addressEditText= getEditText(getView(),R.id.edit_text_edit_user_info_address);
 
         if(userViewModel.getUserInfoSpecific().getValue()!=null){
-            userViewModel.getUser().observe(getViewLifecycleOwner(), (Observer<User>) user -> {
+            userViewModel.getUser().observe(getViewLifecycleOwner(), user -> {
                 setEditTextWithNullCheck(nameEditText, user.getName());
                 setEditTextWithNullCheck(surnameEditText, user.getSurname());
                 setEditTextWithNullCheck(telephoneEditText, user.getTelephone());
@@ -96,7 +90,7 @@ public class EditInfosFragment extends Fragment {
 
         User newUser = new User(name,surname,userViewModel.getUser().getValue().getEmail(),telephone,country,city,address);
 
-        userViewModel.editUserInfos(newUser).observe(requireActivity(), (Observer<GenericResult>) result -> {
+        userViewModel.editUserInfos(newUser).observe(requireActivity(), result -> {
             if (result.success) {
                 NavHostFragment.findNavController(this).popBackStack();
                 Toast.makeText(getContext(), getString(R.string.result_edit_success), Toast.LENGTH_SHORT).show();

@@ -6,22 +6,19 @@ import static it.units.ceschia.help.utility.ViewsUtility.setEditTextWithNullChec
 
 import android.app.Dialog;
 import android.os.Bundle;
-
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,10 +26,7 @@ import java.util.HashMap;
 import it.units.ceschia.help.R;
 import it.units.ceschia.help.entity.Application;
 import it.units.ceschia.help.entity.Contact;
-import it.units.ceschia.help.entity.GenericResult;
-import it.units.ceschia.help.reciclerview.adapter.ContactListAdapter;
 import it.units.ceschia.help.reciclerview.adapter.PrioritiesAdapter;
-import it.units.ceschia.help.utility.ItemTouchHelperAdapter;
 import it.units.ceschia.help.utility.RecyclerViewDragAndDropHelper;
 import it.units.ceschia.help.viewmodel.UserViewModel;
 
@@ -49,7 +43,6 @@ public class EditContactDialog extends DialogFragment {
     UserViewModel userViewModel;
     protected RecyclerView mRecyclerView;
     protected PrioritiesAdapter mAdapter;
-    private Toolbar toolbar;
     private Contact contact;
 
 
@@ -68,10 +61,9 @@ public class EditContactDialog extends DialogFragment {
         this.contact = contact;
     }
 
-    public static EditContactDialog display(FragmentManager fragmentManager, Contact c) {
+    public static void display(FragmentManager fragmentManager, Contact c) {
         EditContactDialog dialog = new EditContactDialog(c);
         dialog.show(fragmentManager, TAG);
-        return dialog;
     }
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -83,22 +75,20 @@ public class EditContactDialog extends DialogFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(R.layout.fragment_add_contact, container, false);
 
-        toolbar = view.findViewById(R.id.toolbar_edit_contacts);
-        return view;
+        return inflater.inflate(R.layout.fragment_add_contact, container, false);
     }
 
 
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_edit_priorities);
+        mRecyclerView = view.findViewById(R.id.recycler_view_edit_priorities);
          mLayoutManager = new LinearLayoutManager(getActivity());
 
         mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
@@ -108,7 +98,7 @@ public class EditContactDialog extends DialogFragment {
             mCurrentLayoutManagerType = (LayoutManagerType) savedInstanceState
                     .getSerializable(KEY_LAYOUT_MANAGER);
         }
-        setRecyclerViewLayoutManager(mCurrentLayoutManagerType);
+        setRecyclerViewLayoutManager();
         mAdapter.setPriorities(contact.getPriorities());
         mAdapter.notifyDataSetChanged();
 
@@ -124,12 +114,7 @@ public class EditContactDialog extends DialogFragment {
 
         Button saveInfo = view.findViewById(R.id.button_add_contact);
         saveInfo.setText(R.string.button_save_changes_generic);
-        saveInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sendChanges(view);
-            }
-        });
+        saveInfo.setOnClickListener(v -> sendChanges(view));
     }
     @Override
     public void onStart() {
@@ -151,7 +136,7 @@ public class EditContactDialog extends DialogFragment {
         }
     }
 
-    private boolean sendChanges(View view){
+    private void sendChanges(View view){
         String name = getTextFromEditText(view,R.id.edit_text_add_contact_name);
         String surname = getTextFromEditText(view,R.id.edit_text_add_contact_surname);
         String nick = getTextFromEditText(view,R.id.edit_text_add_contact_nick);
@@ -170,7 +155,7 @@ public class EditContactDialog extends DialogFragment {
         Contact newContact = new Contact(name,surname,phone,mail,null,nick,message,priorities);
         newContact.setFbId(contact.getFbId());
 
-        userViewModel.editContact(newContact).observe(requireActivity(), (Observer<GenericResult>) result -> {
+        userViewModel.editContact(newContact).observe(requireActivity(), result -> {
             if (result.success) {
                 Toast.makeText(getContext(), getString(R.string.result_edit_success), Toast.LENGTH_SHORT).show();
             } else {
@@ -179,13 +164,10 @@ public class EditContactDialog extends DialogFragment {
         });
 
 
-
-
-        return false;
     }
 
 
-    public void setRecyclerViewLayoutManager(LayoutManagerType layoutManagerType) {
+    public void setRecyclerViewLayoutManager() {
         int scrollPosition = 0;
 
         // If a layout manager has already been set, get current scroll position.

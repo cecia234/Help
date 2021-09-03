@@ -4,8 +4,13 @@ import static it.units.ceschia.help.utility.ViewsUtility.getTextFromEditText;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
-import androidx.appcompat.widget.Toolbar;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
@@ -13,13 +18,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -52,7 +50,6 @@ public class AddContactDialog extends DialogFragment {
     protected PrioritiesAdapter mAdapterPriorities;
     protected RecyclerView mRecyclerView;
     protected ArrayList<Contact> mDataset;
-    private Toolbar toolbar;
 
     public AddContactDialog() {
     }
@@ -64,10 +61,9 @@ public class AddContactDialog extends DialogFragment {
         this.mDataset = mDataset;
     }
 
-    public static AddContactDialog display(FragmentManager fragmentManager, EditContactListAdapter mAdapter, ArrayList<Contact> mDataset) {
+    public static void display(FragmentManager fragmentManager, EditContactListAdapter mAdapter, ArrayList<Contact> mDataset) {
         AddContactDialog dialog = new AddContactDialog(mAdapter, mDataset);
         dialog.show(fragmentManager, TAG);
-        return dialog;
     }
 
     @Override
@@ -80,20 +76,18 @@ public class AddContactDialog extends DialogFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(R.layout.fragment_add_contact, container, false);
 
-        toolbar = view.findViewById(R.id.toolbar_edit_contacts);
-        return view;
+        return inflater.inflate(R.layout.fragment_add_contact, container, false);
     }
 
 
     @Override
-    public void onViewCreated(View viewa, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View viewa, Bundle savedInstanceState) {
         super.onViewCreated(viewa, savedInstanceState);
-        mRecyclerView = (RecyclerView) viewa.findViewById(R.id.recycler_view_edit_priorities);
+        mRecyclerView = viewa.findViewById(R.id.recycler_view_edit_priorities);
         mLayoutManager = new LinearLayoutManager(getActivity());
 
         mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
@@ -103,7 +97,7 @@ public class AddContactDialog extends DialogFragment {
             mCurrentLayoutManagerType = (LayoutManagerType) savedInstanceState
                     .getSerializable(KEY_LAYOUT_MANAGER);
         }
-        setRecyclerViewLayoutManager(mCurrentLayoutManagerType);
+        setRecyclerViewLayoutManager();
 
         HashMap<String, Application> defaultPriorities = new HashMap<>();
         defaultPriorities.put("1", Application.WHATSAPP);
@@ -122,12 +116,7 @@ public class AddContactDialog extends DialogFragment {
 
 
         Button saveInfo = viewa.findViewById(R.id.button_add_contact);
-        saveInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sendChanges(viewa);
-            }
-        });
+        saveInfo.setOnClickListener(view -> sendChanges(viewa));
     }
 
     @Override
@@ -141,7 +130,7 @@ public class AddContactDialog extends DialogFragment {
         }
     }
 
-    private boolean sendChanges(View view) {
+    private void sendChanges(View view) {
         String name = getTextFromEditText(view, R.id.edit_text_add_contact_name);
         String surname = getTextFromEditText(view, R.id.edit_text_add_contact_surname);
         String nick = getTextFromEditText(view, R.id.edit_text_add_contact_nick);
@@ -158,7 +147,7 @@ public class AddContactDialog extends DialogFragment {
 
         Contact contact = new Contact(name, surname, phone, mail, null, nick, message, priorities);
 
-        userViewModel.addContact(contact).observe(requireActivity(), (Observer<GenericResult>) result -> {
+        userViewModel.addContact(contact).observe(requireActivity(), result -> {
             if (result.success) {
                 Toast.makeText(getContext(), getString(R.string.result_add_success), Toast.LENGTH_SHORT).show();
             } else {
@@ -167,10 +156,9 @@ public class AddContactDialog extends DialogFragment {
         });
 
 
-        return false;
     }
 
-    public void setRecyclerViewLayoutManager(LayoutManagerType layoutManagerType) {
+    public void setRecyclerViewLayoutManager() {
         int scrollPosition = 0;
 
         // If a layout manager has already been set, get current scroll position.

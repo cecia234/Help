@@ -46,8 +46,8 @@ public class EditContactListAdapter extends RecyclerView.Adapter<EditContactList
             super(view);
             // Define click listener for the ViewHolder's View
 
-            nick = (TextView) view.findViewById(R.id.text_view_edit_contact_nick);
-            number = (TextView) view.findViewById(R.id.text_view_edit_contact_number);
+            nick = view.findViewById(R.id.text_view_edit_contact_nick);
+            number = view.findViewById(R.id.text_view_edit_contact_number);
 
         }
 
