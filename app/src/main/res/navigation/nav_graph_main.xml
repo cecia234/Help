@@ -12,11 +12,19 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_emergencyFragment"
-            app:destination="@id/emergencyFragment" />
+            app:destination="@id/emergencyFragment"
+            app:enterAnim="@anim/slide_in_from_right"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/slide_out_from_right" />
         <action
             android:id="@+id/action_homeFragment_to_loginFragment"
             app:destination="@id/loginFragment"
+            app:enterAnim="@anim/slide_in_from_right"
+            app:exitAnim="@anim/nav_default_exit_anim"
             app:launchSingleTop="true"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/slide_out_from_right"
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true" />
         <action
@@ -29,13 +37,17 @@
         <action
             android:id="@+id/action_homeFragment_to_showInformationFragment"
             app:destination="@id/showInformationFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
+            app:enterAnim="@anim/slide_in_from_bottom"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:popExitAnim="@anim/slide_out_from_bottom" />
         <action
             android:id="@+id/action_homeFragment_to_contactsFragment"
-            app:destination="@id/contactsFragment" />
+            app:destination="@id/contactsFragment"
+            app:enterAnim="@anim/slide_in_from_right"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/slide_out_from_right" />
     </fragment>
     <fragment
         android:id="@+id/emergencyFragment"
@@ -49,11 +61,19 @@
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_loginFragment_to_signUpFragment"
-            app:destination="@id/signUpFragment" />
+            app:destination="@id/signUpFragment"
+            app:enterAnim="@anim/slide_in_from_right"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/slide_out_from_right" />
         <action
             android:id="@+id/action_loginFragment_to_homeFragment"
             app:destination="@id/homeFragment"
+            app:enterAnim="@anim/slide_in_from_right"
+            app:exitAnim="@anim/nav_default_exit_anim"
             app:launchSingleTop="true"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/slide_out_from_right"
             app:popUpTo="@id/nav_graph_main"
             app:popUpToInclusive="true" />
     </fragment>
@@ -65,7 +85,11 @@
         <action
             android:id="@+id/action_signUpFragment_to_homeFragment"
             app:destination="@id/homeFragment"
+            app:enterAnim="@anim/slide_in_from_right"
+            app:exitAnim="@anim/nav_default_exit_anim"
             app:launchSingleTop="true"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/slide_out_from_right"
             app:popUpTo="@id/nav_graph_main"
             app:popUpToInclusive="true" />
     </fragment>
@@ -77,10 +101,10 @@
         <action
             android:id="@+id/action_userInfoFragment_to_editSpecificInfosFragment"
             app:destination="@id/editSpecificInfosFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
+            app:enterAnim="@anim/slide_in_from_bottom"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:popExitAnim="@anim/slide_out_from_bottom" />
         <action
             android:id="@+id/action_userInfoFragment_to_loginFragment"
             app:destination="@id/loginFragment"
@@ -93,10 +117,18 @@
             app:popUpToInclusive="true"/>
         <action
             android:id="@+id/action_userInfoFragment_to_editInfosFragment"
-            app:destination="@id/editInfosFragment" />
+            app:destination="@id/editInfosFragment"
+            app:enterAnim="@anim/slide_in_from_bottom"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/slide_out_from_bottom" />
         <action
             android:id="@+id/action_userInfoFragment_to_contactsFragment"
-            app:destination="@id/editContactsFragment" />
+            app:destination="@id/editContactsFragment"
+            app:enterAnim="@anim/slide_in_from_bottom"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/slide_out_from_bottom" />
     </fragment>
     <fragment
         android:id="@+id/editSpecificInfosFragment"
@@ -120,7 +152,11 @@
         tools:layout="@layout/fragment_edit_contacts" >
         <action
             android:id="@+id/action_editContactsFragment_to_addContactFragment"
-            app:destination="@id/addContactFragment" />
+            app:destination="@id/addContactFragment"
+            app:enterAnim="@anim/slide_in_from_bottom"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/slide_out_from_bottom" />
     </fragment>
     <fragment
         android:id="@+id/contactsFragment"
