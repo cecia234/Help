@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "37567574286",
+    "project_id": "help-b1c0a",
+    "storage_bucket": "help-b1c0a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:37567574286:android:fccb9f8ade66c1669f275f",
+        "android_client_info": {
+          "package_name": "it.units.ceschia.help"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "37567574286-q27m1ut7ve8h9kkf1jblihcnj47fif85.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYulatgFhsRLik5N7nG5qwjvY0ORyeI0Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "37567574286-q27m1ut7ve8h9kkf1jblihcnj47fif85.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
