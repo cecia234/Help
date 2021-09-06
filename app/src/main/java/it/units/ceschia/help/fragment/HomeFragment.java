@@ -49,6 +49,17 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         final NavController nc = Navigation.findNavController(getView());
 
+        userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+
+        userViewModel.getFirebaseUser().observe(getViewLifecycleOwner(), user -> {
+            if (user==null){
+                nc.navigate(R.id.action_homeFragment_to_loginFragment);
+            }else{
+                userViewModel.fetchUserInfos();
+            }
+        });
+
+
         Toolbar myToolbar = getActivity().findViewById(R.id.toolbar_home);
         myToolbar.setTitle(R.string.app_name);
         myToolbar.inflateMenu(R.menu.menu);
@@ -65,16 +76,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 return true;
             }
             return false;
-        });
-
-        userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
-
-        userViewModel.fetchUserInfos();
-
-        userViewModel.getFirebaseUser().observe(getViewLifecycleOwner(), user -> {
-            if (user==null){
-                nc.navigate(R.id.action_homeFragment_to_loginFragment);
-            }
         });
 
         int[] buttons = {R.id.button_emergency, R.id.button_relatives, R.id.button_noise, R.id.button_home_display_informations};
